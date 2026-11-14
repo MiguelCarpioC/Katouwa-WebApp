@@ -13,7 +13,10 @@
   const WATERLINE = 0.635;   // línea de agua en la imagen
   const SURFACE_AT = 0.70;   // en la etapa 2 la línea de agua queda en el tercio inferior
 
-  let imgH = 0, vh = 0, stops = [0, 0, 0];
+  const MOON_CY = 180 / 1024;  // centro de la luna en la imagen (fracción del alto)
+  const MOON_D = 320 / 572;    // diámetro de la luna (fracción del ancho)
+
+  let imgH = 0, imgW = 0, vh = 0, stops = [0, 0, 0], moon = { s: 1, y: 0 };
 
   const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
   const lerp = (a, b, t) => a + (b - a) * t;
@@ -21,7 +24,9 @@
 
   function measure() {
     vh = window.innerHeight;
-    imgH = img.getBoundingClientRect().height;
+    // medir sin la transformación actual
+    imgW = img.offsetWidth;
+    imgH = img.offsetHeight;
     const maxOff = Math.max(0, imgH - vh);
     // Desplazamiento de la imagen hacia arriba para cada etapa
     stops = [
@@ -29,7 +34,12 @@
       clamp(WATERLINE * imgH - SURFACE_AT * vh, 0, maxOff),   // superficie
       0                                                       // luna: parte superior
     ];
-    const w = palafitos.getBoundingClientRect().width;
+    // Luna final: escalada para que quepa completa en la mitad superior y quede fija
+    const vw = window.innerWidth;
+    const s = Math.min(1, (0.56 * vh) / (MOON_D * imgW), (0.6 * vw) / (MOON_D * imgW));
+    moon = { s, y: 0.36 * vh - MOON_CY * imgH * s };
+
+    const w = imgW * 0.30;      // ancho de .palafitos (30% del track)
     const h = w * (120 / 400);
     palafitos.style.top = `${WATERLINE * imgH - h * 0.72}px`;
     update();
@@ -37,11 +47,18 @@
 
   function update() {
     // progreso continuo 0 → 2 a lo largo de las tres etapas
+    // (después de la luna, p se queda en 2: la luna permanece fija)
     const p = clamp(window.scrollY / vh, 0, 2);
     const seg = Math.min(1, Math.floor(p));
     const t = ease(p - seg);
-    const off = lerp(stops[seg], stops[seg + 1], t);
-    track.style.transform = `translate3d(-50%, ${-off}px, 0)`;
+    let y = -lerp(stops[seg], stops[seg + 1], t);
+    let s = 1;
+    if (seg === 1) {            // de la superficie a la luna: sube y se aleja
+      y = lerp(-stops[1], moon.y, t);
+      s = lerp(1, moon.s, t);
+    }
+    track.style.transform = `translate3d(-50%, ${y}px, 0) scale(${s})`;
+    track.style.setProperty('--edge', `${(1 - s) / (1 - Math.min(moon.s, 0.999)) * 22}%`);
 
     // Capas por etapa
     const under = clamp(1 - p, 0, 1);
@@ -51,7 +68,9 @@
     tintDusk.style.opacity = clamp(1 - Math.abs(p - 1) * 1.3, 0, 1);
     tintNight.style.opacity = clamp(p - 1, 0, 1);
 
-    const active = Math.round(p);
+    const mid = window.scrollY + vh / 2;
+    let active = 0;
+    stages.forEach((st, i) => { if (st.offsetTop <= mid) active = i; });
     dots.forEach((d, i) => d.classList.toggle('is-active', i === active));
   }
 

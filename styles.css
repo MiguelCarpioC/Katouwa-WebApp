@@ -44,7 +44,36 @@ body {
   top: 0;
   width: max(100vw, 56vh); /* nunca más angosto que la proporción de la imagen */
   transform: translate3d(-50%, 0, 0);
+  transform-origin: 50% 0;
   will-change: transform;
+  /* Bordes que se funden con el cielo cuando la imagen se aleja (--edge lo controla main.js) */
+  --edge: 0%;
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%),
+    linear-gradient(180deg, transparent 0, #000 calc(var(--edge) * 0.6), #000 100%);
+  -webkit-mask-composite: source-in;
+          mask-image:
+    linear-gradient(90deg, transparent 0, #000 var(--edge), #000 calc(100% - var(--edge)), transparent 100%),
+    linear-gradient(180deg, transparent 0, #000 calc(var(--edge) * 0.6), #000 100%);
+          mask-composite: intersect;
+}
+
+/* Cielo estrellado detrás de la imagen (visible al alejar la luna) */
+.sky {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(1px 1px at 12% 18%, rgba(232,238,242,.8), transparent),
+    radial-gradient(1px 1px at 22% 62%, rgba(232,238,242,.6), transparent),
+    radial-gradient(1.5px 1.5px at 8% 40%, rgba(232,238,242,.7), transparent),
+    radial-gradient(1px 1px at 30% 8%, rgba(232,238,242,.5), transparent),
+    radial-gradient(1px 1px at 18% 85%, rgba(232,238,242,.5), transparent),
+    radial-gradient(1.5px 1.5px at 88% 22%, rgba(232,238,242,.7), transparent),
+    radial-gradient(1px 1px at 78% 50%, rgba(232,238,242,.6), transparent),
+    radial-gradient(1px 1px at 93% 70%, rgba(232,238,242,.5), transparent),
+    radial-gradient(1px 1px at 70% 10%, rgba(232,238,242,.6), transparent),
+    radial-gradient(1px 1px at 84% 90%, rgba(232,238,242,.5), transparent),
+    linear-gradient(180deg, #03060B 0%, #04101A 60%, #06222B 100%);
 }
 
 .scene__img {
@@ -115,7 +144,7 @@ body {
 }
 
 .tint--night {
-  background: linear-gradient(180deg, transparent 45%, rgba(6, 34, 43, 0.85) 100%);
+  background: linear-gradient(180deg, transparent 50%, rgba(4, 16, 26, 0.92) 78%, #06222B 100%);
   opacity: 0;
 }
 
@@ -255,7 +284,7 @@ h2 { font-size: clamp(36px, 4.6vw, 68px); }
 .stage--superficie { justify-content: flex-start; padding-top: 18vh; }
 
 /* Luna: titular y botón debajo de la luna */
-.stage--luna { justify-content: flex-end; padding-bottom: 7vh; }
+.stage--luna { justify-content: flex-end; padding-bottom: 14vh; }
 .stage--luna .stage__inner {
   padding: 36px 56px 40px;
   border-radius: 28px;
@@ -266,6 +295,115 @@ h2 { font-size: clamp(36px, 4.6vw, 68px); }
   box-shadow: 0 0 60px rgba(232, 238, 242, 0.08);
 }
 .stage--luna h2 { font-size: clamp(32px, 3.6vw, 54px); }
+
+/* ───────── Página de equipo ───────── */
+.stage--info { padding-top: 14vh; padding-bottom: 14vh; }
+.stage__inner--wide { max-width: 1040px; width: 100%; }
+.stage--info .eyebrow {
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(6, 34, 43, 0.7);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.card {
+  width: 100%;
+  padding: 28px 32px;
+  border-radius: 24px;
+  background: rgba(6, 34, 43, 0.55);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(16px) saturate(1.1);
+  -webkit-backdrop-filter: blur(16px) saturate(1.1);
+  box-shadow: 0 0 60px rgba(232, 238, 242, 0.06);
+  text-align: left;
+}
+.card h3 {
+  font-family: var(--f-head);
+  font-weight: 400;
+  font-size: 26px;
+  margin-bottom: 12px;
+}
+.card p { font-size: 16px; line-height: 1.6; color: rgba(232, 238, 242, 0.88); }
+
+/* Pendiente de completar */
+.todo { outline: 1px dashed rgba(229, 96, 77, 0.7); outline-offset: 4px; border-radius: 6px; }
+
+.team { display: flex; align-items: center; gap: 40px; max-width: 760px; }
+.team__photo {
+  flex: 0 0 220px;
+  height: 220px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--sand);
+  font-size: 13px;
+  background: radial-gradient(circle at 50% 40%, rgba(15, 92, 99, 0.6), rgba(6, 34, 43, 0.8));
+  border: 1px solid var(--glass-border);
+}
+.team__photo.todo { outline-offset: 6px; border-radius: 50%; }
+.team__name { font-family: var(--f-num); font-weight: 500; letter-spacing: 0.28em; font-size: 32px; text-shadow: none; }
+.team__tag { color: var(--sand); margin: 4px 0 20px; }
+.team__members { list-style: none; display: grid; gap: 12px; font-size: 16px; }
+.team__members li { padding: 2px 6px; }
+.team__members span { color: rgba(232, 238, 242, 0.6); }
+
+.faq { width: 100%; display: grid; gap: 10px; text-align: left; }
+.faq details {
+  border-radius: 16px;
+  background: rgba(6, 34, 43, 0.5);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.faq summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 16px 22px;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-family: var(--f-num); color: var(--sand); }
+.faq details[open] summary::after { content: "–"; }
+.faq details p { padding: 0 22px 18px; font-size: 15px; line-height: 1.6; color: rgba(232, 238, 242, 0.85); }
+.faq summary:focus-visible { outline: 2px solid var(--sand); outline-offset: 2px; border-radius: 16px; }
+
+.links { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.link {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 200px;
+  color: var(--moon);
+  text-decoration: none;
+  transition: transform .25s, border-color .25s, box-shadow .25s;
+}
+.link:hover { transform: translateY(-3px); border-color: rgba(232, 238, 242, 0.5); box-shadow: 0 0 50px rgba(232, 238, 242, 0.15); }
+.link__kicker { font-family: var(--f-num); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sand); }
+.link__title { font-family: var(--f-head); font-size: 30px; line-height: 1.15; }
+.link__go { margin-top: auto; font-weight: 500; }
+
+.data__list { list-style: none; display: grid; gap: 12px; font-size: 15px; line-height: 1.5; }
+.data__list li { display: flex; gap: 12px; align-items: baseline; padding: 2px 6px; }
+.tag {
+  flex: 0 0 auto;
+  font-family: var(--f-num);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--glass-border);
+  color: var(--moon);
+}
+.tag--nasa { background: rgba(15, 92, 99, 0.6); }
+.tag--anu  { background: rgba(168, 71, 47, 0.55); }
 
 /* Indicador de scroll */
 .cue {
@@ -330,6 +468,10 @@ h2 { font-size: clamp(36px, 4.6vw, 68px); }
   .depth a span { display: none; }
   .stage { padding: 100px 16px 120px; }
   .cta { padding: 16px 24px; font-size: 15px; }
+  .team { flex-direction: column; gap: 24px; }
+  .team__photo { flex-basis: auto; width: 180px; height: 180px; }
+  .links { grid-template-columns: 1fr; }
+  .card { padding: 22px 20px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -338,3 +480,5 @@ h2 { font-size: clamp(36px, 4.6vw, 68px); }
   .bubbles { display: none; }
   .stage__inner { transition: none; }
 }
+
+.cue--down { flex-direction: column; }

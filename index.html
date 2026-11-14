@@ -14,6 +14,7 @@
 
   <!-- Fondo único: agua · superficie · cielo. Se desplaza de abajo hacia arriba con el scroll. -->
   <div class="scene" aria-hidden="true">
+    <div class="sky"></div>
     <div class="scene__track" id="track">
       <img class="scene__img" id="sceneImg" src="assets/fondo-katouwa.webp" alt="">
 
@@ -39,6 +40,10 @@
     <a href="#agua" data-i="0"><span>Bajo el agua</span></a>
     <a href="#superficie" data-i="1"><span>La superficie</span></a>
     <a href="#luna" data-i="2"><span>La luna</span></a>
+    <a href="#equipo" data-i="3"><span>Equipo</span></a>
+    <a href="#proyecto" data-i="4"><span>Proyecto</span></a>
+    <a href="#demo" data-i="5"><span>Demo y enlaces</span></a>
+    <a href="#datos" data-i="6"><span>Datos y SI</span></a>
   </nav>
 
   <main>
@@ -68,6 +73,106 @@
       <div class="stage__inner">
         <h2>Custodios: mirar el territorio desde dos cielos.</h2>
         <a class="cta" href="#sala-de-control">Entrar a la Sala de Control Biocultural</a>
+      </div>
+      <a class="cue cue--down" href="#equipo">
+        <span>Conoce al equipo</span>
+        <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 5v14M5 12l7 7 7-7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </section>
+
+    <!-- ───────── Página de equipo (sobre la luna fija) ───────── -->
+
+    <section class="stage stage--info" id="equipo">
+      <div class="stage__inner">
+        <p class="eyebrow">Equipo · Team</p>
+        <div class="card team">
+          <div class="team__photo todo" role="img" aria-label="Foto del equipo (pendiente)">
+            <svg viewBox="0 0 120 80" width="120" height="80"><g fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="34" cy="30" r="10"/><path d="M16 66c2-12 10-18 18-18s16 6 18 18"/><circle cx="60" cy="26" r="11"/><path d="M40 70c2-14 11-21 20-21s18 7 20 21"/><circle cx="86" cy="30" r="10"/><path d="M68 66c2-12 10-18 18-18s16 6 18 18"/></g></svg>
+            <span>Foto del equipo</span>
+          </div>
+          <div class="team__body">
+            <h2 class="team__name">KATOUWA</h2>
+            <p class="team__tag">Custodios del Manglar</p>
+            <ul class="team__members">
+              <li class="todo">Nombre Apellido <span>· Rol</span></li>
+              <li class="todo">Nombre Apellido <span>· Rol</span></li>
+              <li class="todo">Nombre Apellido <span>· Rol</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stage stage--info" id="proyecto">
+      <div class="stage__inner stage__inner--wide">
+        <p class="eyebrow">Descripción · Project description</p>
+        <div class="card summary" lang="en">
+          <h3>Summary</h3>
+          <p>KATOUWA is a bio-cultural monitoring platform for the mangroves of Santa Rosa de Agua, Lake Maracaibo, co-designed with the Añú people. It looks at the territory from two skies: NASA Earth observation from orbit, and the ancestral knowledge of Añú fishers.</p>
+        </div>
+        <div class="faq" lang="en">
+          <details open>
+            <summary>What exactly does it do?</summary>
+            <p>It joins satellite indicators of mangrove health with field observations from Añú fishers in one Bio-cultural Control Room.</p>
+          </details>
+          <details>
+            <summary>How does it work?</summary>
+            <p>NASA satellite layers become simple indicators per mangrove zone. Fishers add reports from the water. The room compares both and raises alerts when they decline or disagree.</p>
+          </details>
+          <details>
+            <summary>What benefits does it have?</summary>
+            <p>Early warning of mangrove loss and pollution, Añú knowledge recognised as data, and evidence the community can use to defend its territory.</p>
+          </details>
+          <details>
+            <summary>What do you hope to achieve?</summary>
+            <p>A living, community-owned record of the mangrove that guides restoration and local decisions.</p>
+          </details>
+          <details>
+            <summary>What tools did you use?</summary>
+            <p>HTML, CSS and JavaScript for the web app; flat SVG graphics. <span class="todo">Add: data-processing tools, languages, hardware.</span></p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="stage stage--info" id="demo">
+      <div class="stage__inner stage__inner--wide">
+        <p class="eyebrow">Demo y enlaces · Links</p>
+        <div class="links">
+          <a class="card link todo" href="#" aria-disabled="true">
+            <span class="link__kicker">Demo del proyecto</span>
+            <span class="link__title">Video de 30 s o 7 diapositivas</span>
+            <span class="link__go">Ver demo →</span>
+          </a>
+          <a class="card link" href="#sala-de-control">
+            <span class="link__kicker">Proyecto definitivo</span>
+            <span class="link__title">Sala de Control Biocultural</span>
+            <span class="link__go">Entrar →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="stage stage--info" id="datos">
+      <div class="stage__inner stage__inner--wide">
+        <p class="eyebrow">Datos y Superinteligencia · Data &amp; SI</p>
+        <div class="card data">
+          <h3>Datos y recursos</h3>
+          <ul class="data__list">
+            <li><b class="tag tag--nasa">NASA</b> Landsat 8/9 (NASA/USGS) · cambio de cobertura del manglar</li>
+            <li><b class="tag tag--nasa">NASA</b> Harmonized Landsat Sentinel-2 (HLS) · salud de la vegetación (NDVI)</li>
+            <li><b class="tag tag--nasa">NASA</b> ORNL DAAC · Global Mangrove Distribution, Aboveground Biomass and Canopy Height</li>
+            <li><b class="tag tag--nasa">NASA</b> GEDI · altura del dosel</li>
+            <li><b class="tag tag--anu">Añú</b> Observaciones comunitarias de pescadores, con consentimiento</li>
+          </ul>
+        </div>
+        <div class="card data">
+          <h3>Uso de Superinteligencia (SI)</h3>
+          <ul class="data__list">
+            <li><b class="tag">SI</b> Código de esta página asistido por Claude (Anthropic)</li>
+            <li class="todo"><b class="tag">SI</b> Imagen de fondo: indicar herramienta y si fue generada con IA</li>
+          </ul>
+        </div>
       </div>
     </section>
   </main>

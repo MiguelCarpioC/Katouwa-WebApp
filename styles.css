@@ -1,0 +1,340 @@
+:root {
+  --abyss: #06222B;
+  --teal: #0F5C63;
+  --mangrove: #2F6B4F;
+  --root: #A8472F;
+  --moon: #E8EEF2;
+  --sand: #D9C7A3;
+  --coral: #E5604D;
+
+  --glass: rgba(232, 238, 242, 0.08);
+  --glass-border: rgba(232, 238, 242, 0.22);
+
+  --f-head: "Fraunces", Georgia, serif;
+  --f-ui: "Inter", system-ui, sans-serif;
+  --f-num: "IBM Plex Mono", ui-monospace, monospace;
+
+  /* Línea de agua dentro de la imagen de fondo (fracción de su alto) */
+  --waterline: 0.635;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--abyss);
+  color: var(--moon);
+  font-family: var(--f-ui);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ───────── Fondo fijo ───────── */
+.scene {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.scene__track {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: max(100vw, 56vh); /* nunca más angosto que la proporción de la imagen */
+  transform: translate3d(-50%, 0, 0);
+  will-change: transform;
+}
+
+.scene__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+}
+
+/* Palafitos posados sobre la línea de agua, a la derecha del mangle */
+.palafitos {
+  position: absolute;
+  right: 2%;
+  width: 30%;
+  top: 0; /* se posiciona en main.js según la línea de agua */
+  height: auto;
+  aspect-ratio: 400 / 120;
+  filter: drop-shadow(0 0 12px rgba(6, 34, 43, 0.6));
+}
+
+/* Peces */
+.fish {
+  position: absolute;
+  height: auto;
+  animation: swim linear infinite;
+}
+.fish--a { width: 4.2%; top: 74%; animation-duration: 38s; }
+.fish--b { width: 3%;   top: 81%; animation-duration: 52s; animation-delay: -20s; }
+.fish--c { width: 5%;   top: 90%; animation-duration: 44s; animation-delay: -8s; transform: scaleX(-1); animation-name: swim-rev; }
+
+@keyframes swim     { from { left: 105%; } to { left: -8%; } }
+@keyframes swim-rev { from { left: -8%; transform: scaleX(-1); } to { left: 105%; transform: scaleX(-1); } }
+
+/* Capas de color */
+.tint, .rays, .vignette, .bubbles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.tint--deep {
+  background:
+    linear-gradient(180deg, rgba(6, 34, 43, 0.55) 0%, rgba(15, 92, 99, 0.25) 45%, rgba(6, 34, 43, 0.75) 100%);
+  mix-blend-mode: multiply;
+}
+
+.rays {
+  background:
+    linear-gradient(100deg, transparent 18%, rgba(232, 238, 242, 0.10) 22%, transparent 28%),
+    linear-gradient(80deg,  transparent 40%, rgba(232, 238, 242, 0.08) 45%, transparent 52%),
+    linear-gradient(95deg,  transparent 62%, rgba(232, 238, 242, 0.07) 66%, transparent 71%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 75%);
+          mask-image: linear-gradient(180deg, #000 0%, transparent 75%);
+  mix-blend-mode: screen;
+  animation: rays 9s ease-in-out infinite alternate;
+}
+@keyframes rays { from { transform: translateX(-1.5%); } to { transform: translateX(1.5%); } }
+
+/* Atardecer: naranja cálido → violeta sobre el cielo */
+.tint--dusk {
+  background: linear-gradient(0deg,
+    transparent 30%,
+    rgba(229, 120, 60, 0.8) 42%,
+    rgba(196, 92, 110, 0.7) 62%,
+    rgba(92, 60, 140, 0.8) 100%);
+  mix-blend-mode: soft-light;
+  opacity: 0;
+}
+
+.tint--night {
+  background: linear-gradient(180deg, transparent 45%, rgba(6, 34, 43, 0.85) 100%);
+  opacity: 0;
+}
+
+.vignette {
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(6, 34, 43, 0.6) 100%);
+}
+
+/* Burbujas */
+.bubbles span {
+  position: absolute;
+  bottom: -20px;
+  border-radius: 50%;
+  border: 1px solid rgba(232, 238, 242, 0.45);
+  background: radial-gradient(circle at 30% 30%, rgba(232, 238, 242, 0.35), transparent 60%);
+  animation: rise linear infinite;
+}
+@keyframes rise {
+  0%   { transform: translate(0, 0); opacity: 0; }
+  10%  { opacity: 0.8; }
+  50%  { transform: translate(10px, -55vh); }
+  100% { transform: translate(-6px, -110vh); opacity: 0; }
+}
+
+/* ───────── Marca y navegación ───────── */
+.brand {
+  position: fixed;
+  top: 32px;
+  left: 48px;
+  z-index: 10;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+.brand__mark {
+  font-family: var(--f-num);
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  font-size: 14px;
+}
+.brand__sub {
+  font-size: 13px;
+  color: var(--sand);
+  opacity: 0.8;
+}
+
+.depth {
+  position: fixed;
+  right: 48px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column-reverse; /* agua abajo, luna arriba */
+  gap: 18px;
+}
+.depth a {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  color: var(--moon);
+  text-decoration: none;
+  font-size: 12px;
+  opacity: 0.5;
+  transition: opacity .3s;
+}
+.depth a::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--moon);
+  transition: background .3s, box-shadow .3s;
+}
+.depth a span { opacity: 0; transform: translateX(6px); transition: .3s; }
+.depth a:hover span, .depth a.is-active span { opacity: 1; transform: none; }
+.depth a.is-active { opacity: 1; }
+.depth a.is-active::after { background: var(--moon); box-shadow: 0 0 12px rgba(232, 238, 242, 0.8); }
+
+/* ───────── Etapas ───────── */
+main { position: relative; z-index: 5; }
+
+.stage {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 48px 140px;
+  text-align: center;
+}
+
+.stage__inner {
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+.stage.is-visible .stage__inner { opacity: 1; transform: none; }
+
+h1, h2 {
+  font-family: var(--f-head);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-shadow: 0 2px 30px rgba(6, 34, 43, 0.8);
+  text-wrap: balance;
+}
+h1 { font-size: clamp(48px, 7vw, 104px); }
+h2 { font-size: clamp(36px, 4.6vw, 68px); }
+
+.eyebrow {
+  font-family: var(--f-num);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--sand);
+}
+
+.pill {
+  padding: 12px 22px;
+  border-radius: 999px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-size: 16px;
+  color: rgba(232, 238, 242, 0.9);
+}
+
+/* Superficie: titular arriba, sobre el cielo; la línea de agua queda en el tercio inferior */
+.stage--superficie { justify-content: flex-start; padding-top: 18vh; }
+
+/* Luna: titular y botón debajo de la luna */
+.stage--luna { justify-content: flex-end; padding-bottom: 7vh; }
+.stage--luna .stage__inner {
+  padding: 36px 56px 40px;
+  border-radius: 28px;
+  background: rgba(6, 34, 43, 0.42);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(14px) saturate(1.1);
+  -webkit-backdrop-filter: blur(14px) saturate(1.1);
+  box-shadow: 0 0 60px rgba(232, 238, 242, 0.08);
+}
+.stage--luna h2 { font-size: clamp(32px, 3.6vw, 54px); }
+
+/* Indicador de scroll */
+.cue {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 10px;
+  color: var(--moon);
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  opacity: 0.8;
+}
+.cue svg { animation: bob 2.2s ease-in-out infinite; }
+.cue:hover { opacity: 1; }
+@keyframes bob { 0%, 100% { transform: translateY(4px); } 50% { transform: translateY(-6px); } }
+
+/* Botón principal */
+.cta {
+  margin-top: 12px;
+  padding: 18px 36px;
+  border-radius: 999px;
+  font-family: var(--f-ui);
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--abyss);
+  text-decoration: none;
+  background: linear-gradient(180deg, #FFFFFF, var(--moon) 60%, #C9D4DB);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow:
+    0 0 0 6px rgba(232, 238, 242, 0.08),
+    0 0 40px rgba(232, 238, 242, 0.45),
+    0 0 90px rgba(217, 199, 163, 0.25);
+  transition: transform .25s, box-shadow .25s;
+  animation: glow 3.5s ease-in-out infinite;
+}
+.cta:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 0 8px rgba(232, 238, 242, 0.12),
+    0 0 60px rgba(232, 238, 242, 0.65),
+    0 0 120px rgba(217, 199, 163, 0.35);
+}
+.cta:focus-visible, .cue:focus-visible, .depth a:focus-visible {
+  outline: 2px solid var(--sand);
+  outline-offset: 4px;
+}
+@keyframes glow {
+  0%, 100% { filter: brightness(1); }
+  50%      { filter: brightness(1.06); }
+}
+
+/* ───────── Responsive ───────── */
+@media (max-width: 720px) {
+  .brand { left: 16px; top: 20px; }
+  .brand__sub { display: none; }
+  .depth { right: 16px; }
+  .depth a span { display: none; }
+  .stage { padding: 100px 16px 120px; }
+  .cta { padding: 16px 24px; font-size: 15px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .fish, .rays, .bubbles span, .cue svg, .cta { animation: none; }
+  .bubbles { display: none; }
+  .stage__inner { transition: none; }
+}

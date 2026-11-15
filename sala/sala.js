@@ -4,7 +4,7 @@
 
   const state = { territory: 'santa-rosa', layer: 'ambos', year: 2025, data: null, selection: null, reading: null, signalId: null };
 
-  const fmt = (v, d = 0) => Number(v).toLocaleString('es', { minimumFractionDigits: d, maximumFractionDigits: d });
+  const fmt = (v, d = 0) => Number(v).toLocaleString('en', { minimumFractionDigits: d, maximumFractionDigits: d });
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
   // ───────── Mapa ─────────
@@ -15,13 +15,13 @@
     onImageryStatus: ({ pending, failed, loaded }) => {
       // Sin conexión a las teselas: avisar en lugar de dejar el mapa vacío
       $('attribution').textContent = !pending && failed && !loaded
-        ? 'No se pudo cargar la imagen satelital (sin conexión)'
+        ? 'Satellite imagery could not be loaded (offline)'
         : imagery.attribution;
     },
     onSiteClick: (id, latlon) => select(id, latlon),
     onEmptyClick: () => {
       clearSelection();
-      $('pulseEmpty').textContent = 'Elige P1, P2, la zona ROI o el lago';
+      $('pulseEmpty').textContent = 'Choose P1, P2, the ROI area or the lake';
     },
   });
 
@@ -34,7 +34,7 @@
     },
     onPlayChange: on => {
       $('playBtn').classList.toggle('is-playing', on);
-      $('playBtn').setAttribute('aria-label', on ? 'Detener' : 'Reproducir la serie año por año');
+      $('playBtn').setAttribute('aria-label', on ? 'Stop' : 'Play the series year by year');
     },
   });
   $('playBtn').addEventListener('click', () => pulse.toggle());
@@ -49,8 +49,8 @@
   // ───────── Carga ─────────
   function setStatus(source, error) {
     const el = $('sourceStatus');
-    if (source === 'api') el.innerHTML = `Fuente: <b>backend</b><br>${esc(new URL(api.baseUrl, location.href).host)}`;
-    else el.innerHTML = `Fuente: <b>paquete validado 2019–2025</b><br>Landsat · MODIS · POWER${error ? '<br>Backend sin respuesta' : ''}`;
+    if (source === 'api') el.innerHTML = `Source: <b>backend</b><br>${esc(new URL(api.baseUrl, location.href).host)}`;
+    else el.innerHTML = `Source: <b>validated package 2019–2025</b><br>Landsat · MODIS · POWER${error ? '<br>Backend not responding' : ''}`;
   }
 
   async function loadTerritory() {
@@ -103,7 +103,7 @@
     $('zoneCard').hidden = true;
     $('pulseLive').hidden = true;
     $('pulseEmpty').hidden = false;
-    $('pulseEmpty').textContent = 'Selecciona un punto del mapa';
+    $('pulseEmpty').textContent = 'Select a point on the map';
     pulse.hide();
   }
 
@@ -111,8 +111,8 @@
   function renderVoices(c) {
     const n = c && c.records ? c.records.length : 0;
     $('voicesCount').innerHTML = n
-      ? `<b>${n}</b> registros con consentimiento`
-      : `<b>0</b> registros · ${esc(c ? c.pendingMessage : 'Pendiente de autorización de la comunidad')}`;
+      ? `<b>${n}</b> records with consent`
+      : `<b>0</b> records · ${esc(c ? c.pendingMessage : 'Pending community authorization')}`;
     const chrono = c && c.chronology;
     $('timeline').innerHTML = chrono ? chrono.events.map(e => `
       <li data-from="${e.from}" data-to="${e.to}">
@@ -156,7 +156,7 @@
 
   function valueText(r) {
     if (r.text != null) return esc(r.text);
-    if (r.value == null) return '<span class="na">sin dato</span>';
+    if (r.value == null) return '<span class="na">no data</span>';
     return `${fmt(r.value, r.decimals ?? 0)}${r.unit ? ' ' + esc(r.unit) : ''}`;
   }
 
@@ -170,7 +170,7 @@
     const ev = $('zcEvidence');
     ev.hidden = !r.evidence;
     if (r.evidence) {
-      ev.innerHTML = `<p class="evidence__title">Resumen de evidencia</p>
+      ev.innerHTML = `<p class="evidence__title">Evidence summary</p>
         <p class="evidence__sentence">${esc(r.evidence.sentence)}</p>
         <dl class="evidence__grid">${r.evidence.items.map(i => `<div><dt>${esc(i.label)}</dt><dd>${esc(i.text)}</dd></div>`).join('')}</dl>`;
     }
@@ -196,7 +196,7 @@
       </section>`).join('');
 
     $('zcNotes').innerHTML = (r.notes || []).map(n => `<li>${esc(n)}</li>`).join('');
-    $('zcSource').textContent = r.source === 'api' ? 'Backend' : 'Paquete validado · 2019–2025';
+    $('zcSource').textContent = r.source === 'api' ? 'Backend' : 'Validated package · 2019–2025';
     $('zoneCard').hidden = false;
   }
 
@@ -218,7 +218,7 @@
       <li data-year="${n.year}" class="${n.year === state.year ? 'is-on' : ''}${n.hz == null ? ' is-na' : ''}">
         <span>${n.year}</span>
         <b>${n.value == null ? '—' : fmt(n.value, s.decimals ?? 2)}</b>
-        <i>${n.hz == null ? 'sin dato' : n.hz + ' Hz'}</i>
+        <i>${n.hz == null ? 'no data' : n.hz + ' Hz'}</i>
       </li>`).join('');
   }
 
@@ -241,7 +241,7 @@
     const root = $('analysis');
     const { data } = await api.getAnalysis(state.territory);
     analysisData = data;
-    if (!data) { root.innerHTML = `<p class="an-empty">${esc(state.data && state.data.message || 'Sin análisis para este territorio todavía')}</p>`; return; }
+    if (!data) { root.innerHTML = `<p class="an-empty">${esc(state.data && state.data.message || 'No analysis for this territory yet')}</p>`; return; }
     window.KatouwaAnalysis.render(root, data);
   }
   function setView(v) {

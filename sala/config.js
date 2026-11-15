@@ -16,7 +16,7 @@ window.KATOUWA_CONFIG = {
   // Imagen satelital de fondo (teselas XYZ en Web Mercator).
   imagery: {
     url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-    attribution: 'Imagen satelital: Esri, Maxar, Earthstar Geographics y la comunidad de usuarios GIS',
+    attribution: 'Satellite imagery: Esri, Maxar, Earthstar Geographics and the GIS user community',
     maxZoom: 18,
   },
 };

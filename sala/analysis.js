@@ -10,7 +10,7 @@
     if (parent) parent.appendChild(n);
     return n;
   };
-  const fmt = (v, d = 0) => Number(v).toLocaleString('es', { minimumFractionDigits: d, maximumFractionDigits: d });
+  const fmt = (v, d = 0) => Number(v).toLocaleString('en', { minimumFractionDigits: d, maximumFractionDigits: d });
   const signed = (v, d) => (v > 0 ? '+' : v < 0 ? '−' : '') + fmt(Math.abs(v), d);
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
@@ -49,7 +49,7 @@
     const step = (W - m.l - m.r) / (y1 - y0 + 1);
     const x = yr => m.l + step * (yr - y0 + 0.5);
     const y = v => m.t + (1 - (v - lo) / (hi - lo)) * (H - m.t - m.b);
-    const svg = el('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': 'NDVI por zona 2019–2025 con eventos de la comunidad' }, host);
+    const svg = el('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': 'NDVI by area 2019–2025 with community events' }, host);
 
     // Eventos de la comunidad (bandas y marcas)
     const ev = el('g', { class: 'viz-events' }, svg);
@@ -93,7 +93,7 @@
         return `<div class="viz-tip__row"><i style="background:${SERIES[z.id]}"></i>${esc(z.label)}<b>${p && p.value != null ? fmt(p.value, 3) : '—'}</b></div>`;
       }).join('');
       const evs = a.events.filter(ev2 => ev2.from <= yr && yr <= ev2.to).map(ev2 => `<li>${esc(ev2.event)}</li>`).join('');
-      showTip(`<strong>${yr}</strong>${rows}${evs ? `<p class="viz-tip__sub">Comunidad</p><ul>${evs}</ul>` : ''}`, e.clientX, e.clientY);
+      showTip(`<strong>${yr}</strong>${rows}${evs ? `<p class="viz-tip__sub">Community</p><ul>${evs}</ul>` : ''}`, e.clientX, e.clientY);
     });
     hit.addEventListener('mouseleave', () => { cross.setAttribute('d', ''); hideTip(); });
     return { x, m, W, step };
@@ -106,7 +106,7 @@
     const rain = a.climate.rain;
     const max = Math.ceil(Math.max(...rain.map(r => r.value)) / 500) * 500;
     const y = v => t + (1 - v / max) * (H - t - b);
-    const svg = el('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': 'Lluvia anual estimada 2019–2025' }, host);
+    const svg = el('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': 'Estimated annual rainfall 2019–2025' }, host);
     const grid = el('g', { class: 'viz-grid' }, svg);
     for (let v = 0; v <= max; v += 500) {
       el('path', { d: `M${m.l} ${y(v)}H${W - m.r}` }, grid);
@@ -120,7 +120,7 @@
       const x0 = x(r.year) - bw / 2, top = y(r.value), rr = Math.min(4, h);
       el('path', { d: `M${x0} ${y(0)}V${top + rr}Q${x0} ${top} ${x0 + rr} ${top}H${x0 + bw - rr}Q${x0 + bw} ${top} ${x0 + bw} ${top + rr}V${y(0)}Z` }, g);
       el('rect', { x: x0 - 6, y: t, width: bw + 12, height: H - t - b, fill: 'transparent' }, g)
-        .addEventListener('mousemove', e => showTip(`<strong>${r.year}</strong><div class="viz-tip__row">Lluvia estimada<b>${fmt(r.value, 0)} mm</b></div>`, e.clientX, e.clientY));
+        .addEventListener('mousemove', e => showTip(`<strong>${r.year}</strong><div class="viz-tip__row">Estimated rainfall<b>${fmt(r.value, 0)} mm</b></div>`, e.clientX, e.clientY));
       g.addEventListener('mouseleave', hideTip);
     });
     const w = a.climate.wet;
@@ -136,7 +136,7 @@
     const gw = (W - m.l - m.r) / years.length;
     const bw = Math.min(14, gw / 2 - 4);
     const y = v => m.t + (1 - v / max) * (H - m.t - m.b);
-    const svg = el('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': 'Observaciones MODIS válidas frente a totales por año' }, host);
+    const svg = el('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': 'Valid versus total MODIS observations per year' }, host);
     const grid = el('g', { class: 'viz-grid' }, svg);
     [0, max / 2, max].forEach(v => {
       el('path', { d: `M${m.l} ${y(v)}H${W - m.r}` }, grid);
@@ -150,7 +150,7 @@
         const g = el('g', {}, svg);
         el('rect', { x: x0, y: y(r.total), width: bw, height: y(0) - y(r.total), rx: 3, class: 'viz-q-total' }, g);
         if (r.valid) el('rect', { x: x0, y: y(r.valid), width: bw, height: y(0) - y(r.valid), rx: 3, fill: SERIES[s.id] }, g);
-        g.addEventListener('mousemove', e => showTip(`<strong>${s.id} · ${yr}</strong><div class="viz-tip__row">Válidas<b>${r.valid} de ${r.total}</b></div>`, e.clientX, e.clientY));
+        g.addEventListener('mousemove', e => showTip(`<strong>${s.id} · ${yr}</strong><div class="viz-tip__row">Valid<b>${r.valid} of ${r.total}</b></div>`, e.clientX, e.clientY));
         g.addEventListener('mouseleave', hideTip);
       });
       el('text', { x: cx, y: H - 6, 'text-anchor': 'middle', class: 'viz-axis' }, svg).textContent = yr;
@@ -162,13 +162,13 @@
     const [y0, y1] = a.period;
     root.innerHTML = `
       <header class="an-head">
-        <p class="an-kicker">Análisis integrado · ${y0}–${y1} · Satélite NASA + memoria de la comunidad</p>
+        <p class="an-kicker">Integrated analysis · ${y0}–${y1} · NASA satellite + community memory</p>
         <h2>${esc(a.headline.title)}</h2>
         ${a.headline.text.map(t => `<p class="an-lead">${esc(t)}</p>`).join('')}
       </header>
 
       <section class="an-block">
-        <p class="an-title">Las preguntas del reto</p>
+        <p class="an-title">The challenge questions</p>
         <div class="an-questions">
           ${a.questions.map(q => `<article><p class="an-q">${esc(q.q)}</p><p class="an-a">${esc(q.a)}</p><p class="an-d">${esc(q.detail)}</p></article>`).join('')}
         </div>
@@ -176,52 +176,52 @@
 
       <section class="an-block">
         <div class="an-row">
-          <p class="an-title">Dos cielos en el mismo eje de años</p>
+          <p class="an-title">Two skies on the same timeline</p>
           <div class="an-legend">
             ${a.zones.map(z => `<span><i class="an-sw an-sw--${MARK[z.id]}" style="background:${SERIES[z.id]}"></i>${esc(z.label)}</span>`).join('')}
-            <span><i class="an-sw an-sw--event"></i>Evento de la comunidad</span>
+            <span><i class="an-sw an-sw--event"></i>Community event</span>
           </div>
         </div>
-        <p class="an-sub">NDVI mediano mayo–octubre · ${esc(a.provenance.landsat)}</p>
+        <p class="an-sub">Median NDVI, May–October · ${esc(a.provenance.landsat)}</p>
         <div class="an-chart" id="anNdvi"></div>
-        <p class="an-sub">Lluvia anual estimada (mm) · ${esc(a.climate.provenance)}</p>
+        <p class="an-sub">Estimated annual rainfall (mm) · ${esc(a.climate.provenance)}</p>
         <div class="an-chart" id="anRain"></div>
-        <p class="an-note">${esc(a.climate.note)} Temperatura media entre ${fmt(a.climate.tRange[0], 1)} y ${fmt(a.climate.tRange[1], 1)} °C, sin tendencia clara.</p>
-        <p class="an-note">El NDVI del ROI (~0,8) no es comparable con el de P1 o P2: son áreas distintas.</p>
+        <p class="an-note">${esc(a.climate.note)} Mean temperature between ${fmt(a.climate.tRange[0], 1)} and ${fmt(a.climate.tRange[1], 1)} °C, with no clear trend.</p>
+        <p class="an-note">The ROI NDVI (~0.8) is not comparable with P1 or P2: they are different areas.</p>
       </section>
 
       <div class="an-grid">
         <section class="an-block">
-          <p class="an-title">Tendencia por zona</p>
+          <p class="an-title">Trend by area</p>
           <table class="an-table">
-            <thead><tr><th>Zona</th><th>NDVI ${y0}</th><th>NDVI ${y1}</th><th>Pendiente /año</th><th>IC 95 %</th><th>p</th></tr></thead>
+            <thead><tr><th>Area</th><th>NDVI ${y0}</th><th>NDVI ${y1}</th><th>Slope /yr</th><th>95% CI</th><th>p</th></tr></thead>
             <tbody>
               ${a.zones.map(z => `<tr>
                 <td><i class="an-sw an-sw--${MARK[z.id]}" style="background:${SERIES[z.id]}"></i>${esc(z.label)}<small>${esc(z.verdict)}</small></td>
                 <td>${fmt(z.first.value, 3)}</td><td>${fmt(z.last.value, 3)}</td>
                 <td>${signed(z.trend.slope_per_year, 4)}</td>
-                <td>${signed(z.trend.ci95[0], 4)} a ${signed(z.trend.ci95[1], 4)}</td>
+                <td>${signed(z.trend.ci95[0], 4)} to ${signed(z.trend.ci95[1], 4)}</td>
                 <td>${fmt(z.trend.p, 3)}</td></tr>`).join('')}
             </tbody>
           </table>
-          <p class="an-note">Theil–Sen y prueba de Kendall, n = ${a.zones[0].trend.n} años. «Robusto» exige p &lt; 0,05 aun quitando cualquier año.</p>
+          <p class="an-note">Theil–Sen slope and Mann–Kendall test, n = ${a.zones[0].trend.n} years. “Robust” requires p &lt; 0.05 even after removing any single year.</p>
         </section>
 
         <section class="an-block">
-          <p class="an-title">¿Cuánto confiar en los datos?</p>
-          <p class="an-sub">MODIS · observaciones válidas (color) frente a totales (gris) · ${esc(a.provenance.modis)}</p>
+          <p class="an-title">How much can we trust the data?</p>
+          <p class="an-sub">MODIS · valid observations (colour) versus total (grey) · ${esc(a.provenance.modis)}</p>
           <div class="an-chart" id="anQuality"></div>
-          <p class="an-note">MODIS: ${a.quality.valid} de ${a.quality.total} observaciones pasan el filtro (${a.quality.modis.map(q => `${q.id}: ${q.valid} de ${q.total}`).join(' · ')}). Landsat cubre el ${fmt(a.quality.landsatCoverage[0], 1)}–${fmt(a.quality.landsatCoverage[1], 1)} % del ROI cada año.</p>
+          <p class="an-note">MODIS: ${a.quality.valid} of ${a.quality.total} observations pass the filter (${a.quality.modis.map(q => `${q.id}: ${q.valid} of ${q.total}`).join(' · ')}). Landsat covers ${fmt(a.quality.landsatCoverage[0], 1)}–${fmt(a.quality.landsatCoverage[1], 1)}% of the ROI every year.</p>
         </section>
       </div>
 
       <div class="an-grid">
         <section class="an-block">
-          <p class="an-title">Límites</p>
+          <p class="an-title">Limits</p>
           <ul class="an-list">${a.limits.map(l => `<li>${esc(l)}</li>`).join('')}</ul>
         </section>
         <section class="an-block">
-          <p class="an-title">Siguiente paso</p>
+          <p class="an-title">Next steps</p>
           <ul class="an-list an-list--next">${a.next.map(l => `<li>${esc(l)}</li>`).join('')}</ul>
         </section>
       </div>`;

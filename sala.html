@@ -1,92 +1,92 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sala de Control Biocultural · KATOUWA</title>
+  <title>Biocultural Control Room · KATOUWA</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="sala/sala.css?v=20261115c">
+  <link rel="stylesheet" href="sala/sala.css?v=20261115e">
 </head>
 <body>
   <div class="app">
 
-    <!-- ───────── Riel izquierdo ───────── -->
+    <!-- ───────── Left rail ───────── -->
     <aside class="rail">
-      <a class="rail__home" href="index.html">← Inicio</a>
+      <a class="rail__home" href="index.html">← Home</a>
       <div class="rail__brand">
         <span class="rail__mark">KATOUWA</span>
-        <h1>Sala de Control Biocultural</h1>
+        <h1>Biocultural Control Room</h1>
       </div>
 
       <div class="rail__group">
-        <p class="rail__label">Territorio</p>
-        <div class="seg" role="radiogroup" aria-label="Territorio" id="territorySwitch">
+        <p class="rail__label">Territory</p>
+        <div class="seg" role="radiogroup" aria-label="Territory" id="territorySwitch">
           <button role="radio" aria-checked="true" data-territory="santa-rosa">Santa Rosa de Agua</button>
           <button role="radio" aria-checked="false" data-territory="donana">Doñana</button>
         </div>
       </div>
 
       <div class="rail__group">
-        <p class="rail__label">Vista</p>
-        <div class="seg" role="radiogroup" aria-label="Vista" id="viewSwitch">
-          <button role="radio" aria-checked="true" data-view="mapa">Mapa</button>
-          <button role="radio" aria-checked="false" data-view="analisis">Análisis</button>
+        <p class="rail__label">View</p>
+        <div class="seg" role="radiogroup" aria-label="View" id="viewSwitch">
+          <button role="radio" aria-checked="true" data-view="mapa">Map</button>
+          <button role="radio" aria-checked="false" data-view="analisis">Analysis</button>
         </div>
       </div>
 
       <div class="rail__group" id="layersGroup">
-        <p class="rail__label">Capas</p>
-        <div class="layers" role="radiogroup" aria-label="Capas" id="layerSwitch">
+        <p class="rail__label">Layers</p>
+        <div class="layers" role="radiogroup" aria-label="Layers" id="layerSwitch">
           <button role="radio" aria-checked="false" data-layer="nasa">
             <svg viewBox="0 0 24 24" width="18" height="18"><g fill="none" stroke="currentColor" stroke-width="1.5"><rect x="9" y="9" width="6" height="6" rx="1"/><path d="M3 6h5v4H3zM16 14h5v4h-5zM8 8l1 1M15 15l1 1"/></g></svg>
-            Satélite NASA
+            NASA satellite
           </button>
           <button role="radio" aria-checked="false" data-layer="voces">
             <svg viewBox="0 0 24 24" width="18" height="18"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 12h1M8 8v8M12 5v14M16 9v6M20 11v2"/></g></svg>
-            Voces de la comunidad
+            Community voices
           </button>
           <button role="radio" aria-checked="true" data-layer="ambos">
             <svg viewBox="0 0 24 24" width="18" height="18"><g fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="12" r="5"/><circle cx="15" cy="12" r="5"/></g></svg>
-            Ambos cielos
+            Both skies
           </button>
         </div>
       </div>
 
       <div class="rail__group">
         <div class="rail__row">
-          <p class="rail__label">Año</p>
+          <p class="rail__label">Year</p>
           <output class="year" id="yearOut">2025</output>
         </div>
-        <input class="slider" id="year" type="range" min="2019" max="2025" step="1" value="2025" aria-label="Año">
+        <input class="slider" id="year" type="range" min="2019" max="2025" step="1" value="2025" aria-label="Year">
         <div class="slider__ends"><span id="yearMin">2019</span><span id="yearMax">2025</span></div>
       </div>
 
       <p class="rail__status" id="sourceStatus"></p>
     </aside>
 
-    <!-- ───────── Centro ───────── -->
+    <!-- ───────── Centre ───────── -->
     <main class="stage" id="stage">
-      <section class="analysis" id="analysis" hidden aria-label="Análisis integrado"></section>
+      <section class="analysis" id="analysis" hidden aria-label="Integrated analysis"></section>
       <div class="map" id="map">
-        <svg id="mapSvg" role="img" aria-label="Mapa del área de estudio"></svg>
+        <svg id="mapSvg" role="img" aria-label="Map of the study area"></svg>
 
-        <!-- Sobre el mapa, a la izquierda: ROI y voces de la comunidad -->
+        <!-- Over the map, on the left: ROI and community voices -->
         <div class="map-side" id="mapSide">
           <button class="roi-chip" id="roiChip" type="button">
-            <span class="roi-chip__kicker">Zona candidata ROI</span>
-            <span class="roi-chip__title" id="roiChipTitle">≈ 20,05 ha</span>
-            <span class="roi-chip__note">Sin polígono en los datos</span>
+            <span class="roi-chip__kicker">Candidate ROI area</span>
+            <span class="roi-chip__title" id="roiChipTitle">≈ 20.05 ha</span>
+            <span class="roi-chip__note">No polygon in the data</span>
           </button>
           <button class="roi-chip roi-chip--water" id="waterChip" type="button">
-            <span class="roi-chip__kicker">Lago de Maracaibo</span>
-            <span class="roi-chip__note">Sin datos satelitales del agua todavía</span>
+            <span class="roi-chip__kicker">Lake Maracaibo</span>
+            <span class="roi-chip__note">No satellite water data yet</span>
           </button>
-          <section class="voices-panel" id="voicesPanel" aria-label="Voces de la comunidad">
-            <p class="voices-panel__title">Voces de la comunidad</p>
+          <section class="voices-panel" id="voicesPanel" aria-label="Community voices">
+            <p class="voices-panel__title">Community voices</p>
             <p class="voices-panel__count" id="voicesCount"></p>
-            <p class="voices-panel__sub">Memoria del territorio · 1904–2026</p>
+            <p class="voices-panel__sub">Memory of the territory · 1904–2026</p>
             <ol class="timeline" id="timeline"></ol>
             <p class="voices-panel__src" id="timelineSrc"></p>
           </section>
@@ -94,17 +94,17 @@
 
         <div class="map-empty" id="mapEmpty" hidden></div>
 
-        <div class="legend" id="legend" aria-label="Leyenda">
-          <span><i class="sw sw--aoi"></i><b>área de estudio</b></span>
-          <span><i class="sw sw--site"></i><b>punto de muestreo</b></span>
+        <div class="legend" id="legend" aria-label="Legend">
+          <span><i class="sw sw--aoi"></i><b>study area</b></span>
+          <span><i class="sw sw--site"></i><b>sampling point</b></span>
         </div>
         <p class="attribution" id="attribution"></p>
 
-        <!-- Tarjeta de zona (aparece al hacer clic) -->
+        <!-- Zone card (appears on click) -->
         <article class="zone-card" id="zoneCard" hidden aria-live="polite">
           <header class="zone-card__head">
             <h2 id="zcTitle"></h2>
-            <button class="icon-btn" id="zcClose" aria-label="Cerrar">×</button>
+            <button class="icon-btn" id="zcClose" aria-label="Close">×</button>
           </header>
           <p class="zone-card__status" id="zcStatus"></p>
           <span class="badge" id="zcBadge"></span>
@@ -115,12 +115,12 @@
         </article>
       </div>
 
-      <!-- Pulso del territorio -->
-      <section class="pulse" id="pulse" aria-label="Pulso del territorio">
-        <p class="pulse__title">Pulso del territorio</p>
-        <div class="pulse__empty" id="pulseEmpty">Selecciona un punto del mapa</div>
+      <!-- Pulse of the territory -->
+      <section class="pulse" id="pulse" aria-label="Pulse of the territory">
+        <p class="pulse__title">Pulse of the territory · Living Signal</p>
+        <div class="pulse__empty" id="pulseEmpty">Select a point on the map</div>
         <div class="pulse__live" id="pulseLive" hidden>
-          <button class="play" id="playBtn" aria-label="Reproducir sonificación">
+          <button class="play" id="playBtn" aria-label="Play sonification">
             <svg viewBox="0 0 24 24" width="18" height="18" class="play__icon"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
             <svg viewBox="0 0 24 24" width="18" height="18" class="pause__icon"><path d="M7 5h4v14H7zM13 5h4v14h-4z" fill="currentColor"/></svg>
           </button>
@@ -129,18 +129,18 @@
               <canvas id="waveCanvas"></canvas>
               <canvas id="chladniCanvas" hidden></canvas>
             </div>
-            <ol class="notes-row" id="notesRow" aria-label="Valores por año"></ol>
+            <ol class="notes-row" id="notesRow" aria-label="Values per year"></ol>
           </div>
           <div class="pulse__side">
             <label class="source">
-              <span>Fuente</span>
+              <span>Source</span>
               <select id="signalSelect"></select>
             </label>
-            <p class="pulse__caption">Valor → 220–660 Hz. Codificación artística, no un sonido real.</p>
+            <p class="pulse__caption">Value → 220–660 Hz. Artistic encoding, not a real sound.</p>
             <label class="toggle" id="chladniToggleWrap">
               <input type="checkbox" id="chladniToggle">
               <span class="toggle__track"><span class="toggle__thumb"></span></span>
-              Ver como patrón Chladni
+              Show as Chladni pattern
             </label>
           </div>
         </div>
@@ -148,13 +148,13 @@
     </main>
   </div>
 
-  <script src="sala/config.js?v=20261115c"></script>
-  <script src="sala/data/katouwa-data.js?v=20261115c"></script>
-  <script src="sala/static-provider.js?v=20261115c"></script>
-  <script src="sala/api.js?v=20261115c"></script>
-  <script src="sala/map.js?v=20261115c"></script>
-  <script src="sala/pulse.js?v=20261115c"></script>
-  <script src="sala/analysis.js?v=20261115c"></script>
-  <script src="sala/sala.js?v=20261115c"></script>
+  <script src="sala/config.js?v=20261115e"></script>
+  <script src="sala/data/katouwa-data.js?v=20261115e"></script>
+  <script src="sala/static-provider.js?v=20261115e"></script>
+  <script src="sala/api.js?v=20261115e"></script>
+  <script src="sala/map.js?v=20261115e"></script>
+  <script src="sala/pulse.js?v=20261115e"></script>
+  <script src="sala/analysis.js?v=20261115e"></script>
+  <script src="sala/sala.js?v=20261115e"></script>
 </body>
 </html>

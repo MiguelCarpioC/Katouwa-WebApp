@@ -117,6 +117,58 @@
   }, { threshold: 0.35 });
   stages.forEach(s => io.observe(s));
 
+  // ───────── Background sound ─────────
+  // Browsers block sound until the visitor interacts, so playback starts on the
+  // first click, tap or key press (unless the visitor muted it before).
+  const audio = document.getElementById('ambient');
+  const soundBtn = document.getElementById('soundBtn');
+  const soundLabel = document.getElementById('soundLabel');
+  if (audio && soundBtn) {
+    const VOLUME = 0.35;
+    let muted = false;
+    try { muted = localStorage.getItem('katouwa-muted') === '1'; } catch (e) { /* storage unavailable */ }
+    const remember = () => { try { localStorage.setItem('katouwa-muted', muted ? '1' : '0'); } catch (e) { /* ignore */ } };
+    const paint = () => {
+      const on = !audio.paused && !muted;
+      soundBtn.classList.toggle('is-on', on);
+      soundBtn.setAttribute('aria-pressed', String(on));
+      soundBtn.setAttribute('aria-label', on ? 'Mute background sound' : 'Play background sound');
+      soundLabel.textContent = on ? 'Mute' : 'Sound off';
+    };
+    const fadeTo = (target, ms = 900) => {
+      const start = audio.volume, t0 = performance.now();
+      const step = now => {
+        const k = Math.min(1, (now - t0) / ms);
+        audio.volume = start + (target - start) * k;
+        if (k < 1) requestAnimationFrame(step);
+        else if (target === 0) audio.pause();
+      };
+      requestAnimationFrame(step);
+    };
+    const play = () => {
+      audio.volume = 0;
+      return audio.play().then(() => { fadeTo(VOLUME); paint(); }).catch(() => paint());
+    };
+    const unlock = () => {
+      if (!muted && audio.paused) play();
+      ['pointerdown', 'keydown', 'touchstart'].forEach(ev => window.removeEventListener(ev, unlock, true));
+    };
+    soundBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      if (audio.paused || muted) { muted = false; play(); }
+      else { muted = true; fadeTo(0, 400); }
+      remember();
+      setTimeout(paint, 450);
+    });
+    audio.addEventListener('play', paint);
+    audio.addEventListener('pause', paint);
+    if (!muted) {
+      play();   // works if the browser allows autoplay
+      ['pointerdown', 'keydown', 'touchstart'].forEach(ev => window.addEventListener(ev, unlock, { capture: true }));
+    }
+    paint();
+  }
+
   let ticking = false;
   window.addEventListener('scroll', () => {
     if (ticking) return;

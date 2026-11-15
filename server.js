@@ -21,6 +21,7 @@ const TYPES = {
   '.webp': 'image/webp',
   '.ico': 'image/x-icon',
   '.pdf': 'application/pdf',
+  '.mp3': 'audio/mpeg',
 };
 
 // Solo se publica lo que la web necesita
@@ -58,6 +59,21 @@ http.createServer((req, res) => {
     if (req.headers['if-none-match'] === etag) {
       res.writeHead(304, headers);
       return res.end();
+    }
+    headers['Accept-Ranges'] = 'bytes';
+    // Byte ranges (needed by Safari to play audio)
+    const range = /^bytes=(\d*)-(\d*)$/.exec(req.headers.range || '');
+    if (range && (range[1] || range[2])) {
+      let start = range[1] ? parseInt(range[1], 10) : st.size - parseInt(range[2], 10);
+      let end = range[1] && range[2] ? parseInt(range[2], 10) : st.size - 1;
+      start = Math.max(0, start); end = Math.min(end, st.size - 1);
+      if (start > end) {
+        res.writeHead(416, { 'Content-Range': `bytes */${st.size}` });
+        return res.end();
+      }
+      res.writeHead(206, { ...headers, 'Content-Range': `bytes ${start}-${end}/${st.size}`, 'Content-Length': end - start + 1 });
+      if (req.method === 'HEAD') return res.end();
+      return fs.createReadStream(file, { start, end }).pipe(res);
     }
     res.writeHead(200, { ...headers, 'Content-Length': st.size });
     if (req.method === 'HEAD') return res.end();

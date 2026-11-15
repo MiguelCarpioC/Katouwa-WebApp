@@ -330,11 +330,13 @@ h2 { font-size: clamp(36px, 4.6vw, 68px); }
 /* Pendiente de completar */
 .todo { outline: 1px dashed rgba(229, 96, 77, 0.7); outline-offset: 4px; border-radius: 6px; }
 
-.team { display: grid; grid-template-columns: 1.15fr 1fr; align-items: center; gap: 36px; max-width: 1040px; }
+.team { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: center; gap: 36px; max-width: 1040px; }
+.team > * { min-width: 0; }
 .team__photo { margin: 0; display: grid; gap: 10px; }
 .team__photo img {
   display: block;
   width: 100%;
+  max-width: 100%;
   height: auto;
   aspect-ratio: 1200 / 1008;
   object-fit: cover;
@@ -390,7 +392,8 @@ h2 { font-size: clamp(36px, 4.6vw, 68px); }
 .link__go { margin-top: auto; font-weight: 500; }
 
 .data__list { list-style: none; display: grid; gap: 12px; font-size: 15px; line-height: 1.5; }
-.data__list li { display: flex; gap: 12px; align-items: baseline; padding: 2px 6px; }
+.data__list li { padding: 2px 6px 2px 70px; text-indent: -64px; overflow-wrap: anywhere; }
+.data__list li .tag { display: inline-block; min-width: 52px; margin-right: 12px; text-align: center; text-indent: 0; }
 .tag {
   flex: 0 0 auto;
   font-family: var(--f-num);

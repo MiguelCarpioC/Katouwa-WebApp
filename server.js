@@ -45,12 +45,21 @@ http.createServer((req, res) => {
       return res.end('No encontrado');
     }
     const ext = path.extname(file).toLowerCase();
-    res.writeHead(200, {
+    // HTML, CSS, JS and data are revalidated on every visit (ETag), so a new
+    // deploy never mixes fresh HTML with stale styles. Images can be cached.
+    const etag = `"${st.size.toString(16)}-${Math.floor(st.mtimeMs).toString(16)}"`;
+    const revalidate = ['.html', '.css', '.js', '.json', '.csv', '.md'].includes(ext);
+    const headers = {
       'Content-Type': TYPES[ext] || 'application/octet-stream',
-      'Content-Length': st.size,
-      'Cache-Control': ext === '.html' ? 'no-cache' : 'public, max-age=3600',
+      'Cache-Control': revalidate ? 'no-cache' : 'public, max-age=86400',
+      ETag: etag,
       'X-Content-Type-Options': 'nosniff',
-    });
+    };
+    if (req.headers['if-none-match'] === etag) {
+      res.writeHead(304, headers);
+      return res.end();
+    }
+    res.writeHead(200, { ...headers, 'Content-Length': st.size });
     if (req.method === 'HEAD') return res.end();
     fs.createReadStream(file).pipe(res);
   });

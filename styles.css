@@ -330,27 +330,27 @@ h2 { font-size: clamp(36px, 4.6vw, 68px); }
 /* Pendiente de completar */
 .todo { outline: 1px dashed rgba(229, 96, 77, 0.7); outline-offset: 4px; border-radius: 6px; }
 
-.team { display: flex; align-items: center; gap: 40px; max-width: 760px; }
-.team__photo {
-  flex: 0 0 220px;
-  height: 220px;
-  border-radius: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  color: var(--sand);
-  font-size: 13px;
-  background: radial-gradient(circle at 50% 40%, rgba(15, 92, 99, 0.6), rgba(6, 34, 43, 0.8));
+.team { display: grid; grid-template-columns: 1.15fr 1fr; align-items: center; gap: 36px; max-width: 1040px; }
+.team__photo { margin: 0; display: grid; gap: 10px; }
+.team__photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1200 / 1008;
+  object-fit: cover;
+  border-radius: 16px;
   border: 1px solid var(--glass-border);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
 }
-.team__photo.todo { outline-offset: 6px; border-radius: 50%; }
+.team__photo figcaption { font-family: var(--f-num); font-size: 11px; letter-spacing: 0.08em; color: rgba(232, 238, 242, 0.6); }
 .team__name { font-family: var(--f-num); font-weight: 500; letter-spacing: 0.28em; font-size: 32px; text-shadow: none; }
 .team__tag { color: var(--sand); margin: 4px 0 20px; }
-.team__members { list-style: none; display: grid; gap: 12px; font-size: 16px; }
-.team__members li { padding: 2px 6px; }
-.team__members span { color: rgba(232, 238, 242, 0.6); }
+.team__about { font-family: var(--f-head); font-size: 16px; line-height: 1.5; color: rgba(232, 238, 242, 0.88); margin-bottom: 18px; }
+.team__members { list-style: none; display: grid; gap: 8px; font-size: 15px; }
+.team__members li { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; padding-bottom: 8px; border-bottom: 1px solid rgba(232, 238, 242, 0.08); }
+.team__members b { font-weight: 500; }
+.team__members span { font-family: var(--f-num); font-size: 12px; color: rgba(232, 238, 242, 0.6); }
+.team__where { margin-top: 10px; font-family: var(--f-num); font-size: 11px; color: rgba(232, 238, 242, 0.55); }
 
 .faq { width: 100%; display: grid; gap: 10px; text-align: left; }
 .faq details {
@@ -468,8 +468,7 @@ h2 { font-size: clamp(36px, 4.6vw, 68px); }
   .depth a span { display: none; }
   .stage { padding: 100px 16px 120px; }
   .cta { padding: 16px 24px; font-size: 15px; }
-  .team { flex-direction: column; gap: 24px; }
-  .team__photo { flex-basis: auto; width: 180px; height: 180px; }
+  .team { grid-template-columns: 1fr; gap: 24px; }
   .links { grid-template-columns: 1fr; }
   .card { padding: 22px 20px; }
 }
@@ -486,3 +485,11 @@ h2 { font-size: clamp(36px, 4.6vw, 68px); }
 .team__challenge { font-family: var(--f-num); font-size: 12px; color: rgba(232, 238, 242, 0.7); margin: -12px 0 20px; }
 .summary__q { margin-top: 12px; font-family: var(--f-head); font-size: 18px !important; }
 .summary__q b { font-weight: 400; color: var(--sand); }
+
+.faq details ul { list-style: none; display: grid; gap: 6px; padding: 0 22px 12px; font-size: 15px; line-height: 1.5; color: rgba(232, 238, 242, 0.85); }
+.faq details ul li { padding-left: 14px; position: relative; }
+.faq details ul li::before { content: "·"; position: absolute; left: 2px; color: var(--sand); }
+.faq details p + p { margin-top: -6px; }
+.faq b, .summary b { font-weight: 500; color: var(--moon); }
+.data__list a { color: var(--moon); text-decoration: underline; text-decoration-color: rgba(217, 199, 163, 0.5); text-underline-offset: 3px; }
+.data__list a:hover { text-decoration-color: var(--sand); }

@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>KATOUWA · Custodios del Manglar</title>
-  <meta name="description" content="Monitoreo biocultural de los manglares de Santa Rosa de Agua, Lago de Maracaibo, junto al pueblo Añú.">
+  <title>KATOUWA · Two Skies, One Territory</title>
+  <meta name="description" content="KATOUWA connects NASA Earth observation with the territorial knowledge of the Indigenous Añú community in Santa Rosa de Agua, Lake Maracaibo, Venezuela.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -12,7 +12,7 @@
 </head>
 <body>
 
-  <!-- Fondo único: agua · superficie · cielo. Se desplaza de abajo hacia arriba con el scroll. -->
+  <!-- One background: water · surface · sky. It moves from bottom to top as you scroll. -->
   <div class="scene" aria-hidden="true">
     <div class="sky"></div>
     <div class="scene__track" id="track">
@@ -22,7 +22,7 @@
 
     </div>
 
-    <!-- Capas de color por etapa (opacidad controlada por scroll) -->
+    <!-- Colour layers per stage (opacity driven by scroll) -->
     <div class="tint tint--deep" id="tintDeep"></div>
     <div class="rays" id="rays"></div>
     <div class="tint tint--dusk" id="tintDusk"></div>
@@ -33,105 +33,129 @@
 
   <header class="brand">
     <span class="brand__mark">KATOUWA</span>
-    <span class="brand__sub">Custodios del Manglar</span>
+    <span class="brand__sub">Two Skies, One Territory</span>
   </header>
 
-  <nav class="depth" aria-label="Etapas">
-    <a href="#agua" data-i="0"><span>Bajo el agua</span></a>
-    <a href="#superficie" data-i="1"><span>La superficie</span></a>
-    <a href="#luna" data-i="2"><span>La luna</span></a>
-    <a href="#equipo" data-i="3"><span>Equipo</span></a>
-    <a href="#proyecto" data-i="4"><span>Proyecto</span></a>
-    <a href="#demo" data-i="5"><span>Demo y enlaces</span></a>
-    <a href="#datos" data-i="6"><span>Datos y SI</span></a>
+  <nav class="depth" aria-label="Sections">
+    <a href="#water" data-i="0"><span>Under the water</span></a>
+    <a href="#surface" data-i="1"><span>The surface</span></a>
+    <a href="#moon" data-i="2"><span>The moon</span></a>
+    <a href="#team" data-i="3"><span>Team</span></a>
+    <a href="#project" data-i="4"><span>Project</span></a>
+    <a href="#demo" data-i="5"><span>Demo &amp; links</span></a>
+    <a href="#data" data-i="6"><span>Data &amp; SI</span></a>
   </nav>
 
   <main>
-    <section class="stage stage--agua" id="agua">
+    <section class="stage stage--agua" id="water">
       <div class="stage__inner">
-        <p class="eyebrow">Santa Rosa de Agua · Lago de Maracaibo</p>
-        <h1>Añú: el pueblo del agua</h1>
-        <p class="pill">Pescadores. Todo comienza bajo la superficie.</p>
+        <p class="eyebrow">Santa Rosa de Agua · Lake Maracaibo · Venezuela</p>
+        <h1>Añú: the people of the water</h1>
+        <p class="pill">Fishers. Everything begins beneath the surface.</p>
       </div>
-      <a class="cue" href="#superficie">
-        <span>Sube a la superficie</span>
+      <a class="cue" href="#surface">
+        <span>Rise to the surface</span>
         <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
     </section>
 
-    <section class="stage stage--superficie" id="superficie">
+    <section class="stage stage--superficie" id="surface">
       <div class="stage__inner">
-        <h2>Aquí el manglar sostiene la vida y la memoria.</h2>
+        <h2>Here the mangrove holds life and memory.</h2>
       </div>
-      <a class="cue" href="#luna">
-        <span>Sigue subiendo</span>
+      <a class="cue" href="#moon">
+        <span>Keep rising</span>
         <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
     </section>
 
-    <section class="stage stage--luna" id="luna">
+    <section class="stage stage--luna" id="moon">
       <div class="stage__inner">
-        <h2>Custodios: mirar el territorio desde dos cielos.</h2>
-        <a class="cta" href="sala.html">Entrar a la Sala de Control Biocultural</a>
+        <h2>Guardians: seeing the territory from two skies.</h2>
+        <a class="cta" href="sala.html">Enter the Biocultural Control Room</a>
       </div>
-      <a class="cue cue--down" href="#equipo">
-        <span>Conoce al equipo</span>
+      <a class="cue cue--down" href="#team">
+        <span>Meet the team</span>
         <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 5v14M5 12l7 7 7-7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
     </section>
 
-    <!-- ───────── Página de equipo (sobre la luna fija) ───────── -->
+    <!-- ───────── Team page (over the fixed moon) ───────── -->
 
-    <section class="stage stage--info" id="equipo">
-      <div class="stage__inner">
-        <p class="eyebrow">Equipo · Team</p>
+    <section class="stage stage--info" id="team">
+      <div class="stage__inner stage__inner--wide">
+        <p class="eyebrow">The team</p>
         <div class="card team">
-          <div class="team__photo todo" role="img" aria-label="Foto del equipo (pendiente)">
-            <svg viewBox="0 0 120 80" width="120" height="80"><g fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="34" cy="30" r="10"/><path d="M16 66c2-12 10-18 18-18s16 6 18 18"/><circle cx="60" cy="26" r="11"/><path d="M40 70c2-14 11-21 20-21s18 7 20 21"/><circle cx="86" cy="30" r="10"/><path d="M68 66c2-12 10-18 18-18s16 6 18 18"/></g></svg>
-            <span>Foto del equipo</span>
-          </div>
+          <figure class="team__photo">
+            <img src="assets/team-katouwa.webp" width="1200" height="1008" loading="lazy"
+                 alt="The five members of team KATOUWA in NASA Space Apps Challenge T-shirts, in front of the NASA International Space Apps Challenge Madrid banner.">
+            <figcaption>NASA Space Apps Challenge · Madrid</figcaption>
+          </figure>
           <div class="team__body">
             <h2 class="team__name">KATOUWA</h2>
             <p class="team__tag">Two Skies, One Territory</p>
-            <p class="team__challenge" lang="en">NASA Space Apps 2026 · Be an Earth System Trend Detective!</p>
+            <p class="team__challenge">NASA Space Apps Challenge 2026 · Be an Earth System Trend Detective!</p>
+            <p class="team__about">Living architecture at the intersection of two skies: the technological and the cultural. A model that intertwines the alphabet of science with the memory of the Añú people of Maracaibo, in the face of the ecological and cultural collapse of the territory. Space observes from above, while we interpret from within through the lens of Indigenous cognition.</p>
             <ul class="team__members">
-              <li class="todo">Nombre Apellido <span>· Rol</span></li>
-              <li class="todo">Nombre Apellido <span>· Rol</span></li>
-              <li class="todo">Nombre Apellido <span>· Rol</span></li>
+              <li><b>Anny Patricia Guerra Duarte</b> <span>@anny · Team owner</span></li>
+              <li><b>Miguel Angel Carpio Cornejo</b> <span>@lord_sack</span></li>
+              <li><b>Hui Wang</b> <span>@huwang</span></li>
+              <li><b>Rodrigo Alejandro Aguilar Mejia</b> <span>@rodrigoa</span></li>
+              <li><b>Guillermo Alonso</b> <span>@guillermoalonso</span></li>
             </ul>
+            <p class="team__where">Spain</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="stage stage--info" id="proyecto">
+    <section class="stage stage--info" id="project">
       <div class="stage__inner stage__inner--wide">
-        <p class="eyebrow">Descripción · Project description</p>
-        <div class="card summary" lang="en">
+        <p class="eyebrow">Project</p>
+        <div class="card summary">
           <h3>Summary</h3>
-          <p>Environmental change cannot always be understood through a satellite pixel alone. KATOUWA is a reproducible Earth-system trend investigation prototype for the mangroves of Capitán Chico, near Santa Rosa de Agua, Venezuela. It reads NASA satellite and climate time series, filters them by quality, and shows which findings are statistically supported, which are uncertain, and which cannot be inferred. A second evidence stream, consent-based community knowledge, helps interpret the change.</p>
-          <p class="summary__q">What changed? Where? How much? Is it significant? <b>Whose knowledge helps interpret it?</b></p>
+          <p>KATOUWA is an interactive Earth observation platform that connects satellite science with the territorial knowledge of the Indigenous Añú community in Santa Rosa de Agua, Venezuela. It integrates NASA MODIS, Landsat 8/9 and NASA POWER data to investigate environmental change from 2019 to 2025: it visualizes vegetation indices, temperature and precipitation, applies data-quality checks and statistical trend analysis, and compares individual observation points with a 20-hectare candidate coastal vegetation area. Our original <b>Living Signal</b> turns the measurements into visual patterns and synthesized sound.</p>
+          <p class="summary__q">Key finding: <b>a statistically significant vegetation trend at one location does not necessarily represent the wider ecosystem.</b></p>
         </div>
-        <div class="faq" lang="en">
+        <div class="faq">
           <details open>
-            <summary>What exactly does it do?</summary>
-            <p>It turns Landsat (30 m) and MODIS (250 m) vegetation indices and NASA POWER climate data into annual trends for two sampling points and a ~20 ha candidate vegetation area, with Theil–Sen slopes and Kendall tests, and labels every result with its source and limits.</p>
+            <summary>What we developed</summary>
+            <p>An interactive platform that brings together two complementary perspectives: the <b>technological sky</b>, satellite observations and environmental measurements, and the <b>cultural sky</b>, the knowledge, history and lived experience of the people of the territory. Satellite data is not treated as a complete explanation of change, but as a scientific starting point for deeper understanding and community dialogue.</p>
           </details>
           <details>
-            <summary>How does it work?</summary>
-            <p>A Python pipeline exports and quality-filters the time series. The Bio-cultural Control Room maps the study area, shows each point's trend and evidence summary, and encodes the series as sound (220–660 Hz) and Chladni patterns. Community records enter only with consent and provenance.</p>
+            <summary>How the platform works</summary>
+            <ul>
+              <li><b>NASA MODIS</b> · NDVI and EVI vegetation indices at 250 m.</li>
+              <li><b>Landsat 8/9</b> · surface reflectance used to calculate NDVI at 30 m, for more detailed coastal vegetation.</li>
+              <li><b>NASA POWER</b> · historical temperature and precipitation from Earth science models and reanalysis.</li>
+            </ul>
+            <p>We analyzed 2019–2025 for two observation points and a manually delineated candidate coastal vegetation area of about 20 ha. The system screens quality, builds annual summaries, visualizes trends and evaluates direction, magnitude and significance with the Mann–Kendall test and Theil–Sen slope. Full-year and fixed-season (May–October) observations are compared to see how seasonal sampling affects interpretation.</p>
           </details>
           <details>
-            <summary>What benefits does it have?</summary>
-            <p>An honest, inspectable view of change: what the data supports, what it does not, and where local knowledge adds context, instead of an overstated alarm or recovery claim.</p>
+            <summary>Key findings</summary>
+            <p>A trend detected at one point may not represent the wider landscape. Landsat point P1 showed an increasing NDVI trend (+0.020 per year, p = 0.030) that reached the conventional significance threshold, but it is sensitive to removing a single year. The 20 ha candidate area did not reach that threshold (+0.005 per year, p = 0.069), and point P2 shows no trend (p = 0.77).</p>
+            <p>Over the same years, the community documents oil spills, cyanobacteria blooms, flooding and waste, mostly in the water and along the shore, which NDVI does not measure. We do not claim that these NDVI results prove mangrove recovery or degradation: that would require classification, historical validation and local ecological evidence.</p>
           </details>
           <details>
-            <summary>What do you hope to achieve?</summary>
-            <p>A mangrove boundary verified with the community and field measurements, longer series (MODIS since 2000), water indicators (NDWI, surface temperature), and consented community records.</p>
+            <summary>Technology</summary>
+            <ul>
+              <li><b>Python and Streamlit</b> · interactive analysis application.</li>
+              <li><b>Google Earth Engine and JavaScript</b> · processing and export of Landsat observations.</li>
+              <li><b>Python data analysis</b> (pandas, SciPy, Plotly) · indicators and statistical trends.</li>
+              <li><b>This web experience</b> · HTML, CSS and JavaScript (SVG, Canvas, Web Audio), with satellite imagery and a backend-ready data API.</li>
+            </ul>
           </details>
           <details>
-            <summary>What tools did you use?</summary>
-            <p>Python, pandas, SciPy, Plotly and Streamlit for the analysis pipeline; Google Earth Engine exports; HTML, CSS and JavaScript (SVG, Canvas, Web Audio) for this web app.</p>
+            <summary>Creativity: the Living Signal</summary>
+            <p>The Living Signal translates environmental measurements into evolving visual patterns and synthesized sound (220–660 Hz), an alternative way to engage with science beyond charts and tables. The signals are mathematical interpretations of the data, not recordings or representations of Indigenous cultural expressions.</p>
+          </details>
+          <details>
+            <summary>Benefits and intended impact</summary>
+            <p>KATOUWA makes Earth science more understandable, transparent and meaningful for communities, students, researchers and decision-makers, and shows where the available evidence is still insufficient. Our vision is not to replace local knowledge with technology, but to build a bridge between what satellites measure from above and what communities understand through their experience of the territory.</p>
+          </details>
+          <details>
+            <summary>About the challenge</summary>
+            <p>A measured Earth science variable can trend one way in one region and the opposite way in another. The challenge: create a tool that selects variables from Earth science missions or models, visualizes how they change over time, and determines <b>what is changing, where, how much, and whether the change is significant</b>.</p>
           </details>
         </div>
       </div>
@@ -139,41 +163,51 @@
 
     <section class="stage stage--info" id="demo">
       <div class="stage__inner stage__inner--wide">
-        <p class="eyebrow">Demo y enlaces · Links</p>
+        <p class="eyebrow">Demo &amp; links</p>
         <div class="links">
           <a class="card link todo" href="#" aria-disabled="true">
-            <span class="link__kicker">Demo del proyecto</span>
-            <span class="link__title">Video de 30 s o 7 diapositivas</span>
-            <span class="link__go">Ver demo →</span>
+            <span class="link__kicker">Project demo</span>
+            <span class="link__title">30-second video or 7 slides</span>
+            <span class="link__go">Watch the demo →</span>
           </a>
           <a class="card link" href="sala.html">
-            <span class="link__kicker">Proyecto definitivo</span>
-            <span class="link__title">Sala de Control Biocultural</span>
-            <span class="link__go">Entrar →</span>
+            <span class="link__kicker">Final project</span>
+            <span class="link__title">Biocultural Control Room</span>
+            <span class="link__go">Enter →</span>
           </a>
         </div>
       </div>
     </section>
 
-    <section class="stage stage--info" id="datos">
+    <section class="stage stage--info" id="data">
       <div class="stage__inner stage__inner--wide">
-        <p class="eyebrow">Datos y Superinteligencia · Data &amp; SI</p>
+        <p class="eyebrow">Data &amp; Super Intelligence (SI)</p>
         <div class="card data">
-          <h3>Datos y recursos</h3>
+          <h3>NASA data</h3>
           <ul class="data__list">
-            <li><b class="tag tag--nasa">NASA</b> Landsat 8-9 Collection 2 Level 2 (NASA/USGS) · NDVI 30 m, mayo–octubre, 2019–2025</li>
-            <li><b class="tag tag--nasa">NASA</b> MODIS MOD13Q1 v061 · NDVI y EVI 250 m cada 16 días, filtrados por calidad</li>
-            <li><b class="tag tag--nasa">NASA</b> NASA POWER (MERRA-2) · temperatura y lluvia regional, 2019–2025</li>
-            <li><b class="tag">GEE</b> Google Earth Engine · exportación de las series</li>
-            <li><b class="tag tag--anu">Añú</b> Spelorzi (2007), Universidad Rafael Urdaneta · contexto histórico, no medición actual</li>
-            <li><b class="tag tag--anu">Añú</b> Registros comunitarios: pendientes de consentimiento</li>
+            <li><b class="tag tag--nasa">NASA</b> <a href="https://doi.org/10.5067/MODIS/MOD13Q1.061" target="_blank" rel="noopener">MODIS/Terra Vegetation Indices (MOD13Q1 V6.1)</a> · NDVI and EVI, 250 m, 16-day</li>
+            <li><b class="tag tag--nasa">NASA</b> <a href="https://power.larc.nasa.gov/data-access-viewer/" target="_blank" rel="noopener">NASA POWER</a> · temperature and precipitation, 2019–2025</li>
+            <li><b class="tag tag--nasa">NASA</b> <a href="https://science.nasa.gov/mission/landsat-8/" target="_blank" rel="noopener">Landsat 8 mission</a></li>
+            <li><b class="tag tag--nasa">NASA</b> <a href="https://science.nasa.gov/mission/landsat-9/" target="_blank" rel="noopener">Landsat 9 mission</a></li>
           </ul>
         </div>
         <div class="card data">
-          <h3>Uso de Superinteligencia (SI)</h3>
+          <h3>Space agency partner &amp; other data</h3>
           <ul class="data__list">
-            <li><b class="tag">SI</b> Código de esta página asistido por Claude (Anthropic)</li>
-            <li class="todo"><b class="tag">SI</b> Imagen de fondo: indicar herramienta y si fue generada con IA</li>
+            <li><b class="tag">USGS</b> <a href="https://doi.org/10.5066/P9OGBGM6" target="_blank" rel="noopener">Landsat 8–9 Collection 2 Level-2 Surface Reflectance</a></li>
+            <li><b class="tag">GEE</b> <a href="https://earthengine.google.com/" target="_blank" rel="noopener">Google Earth Engine</a> · <a href="https://developers.google.com/earth-engine/datasets/catalog/LANDSAT_LC08_C02_T1_L2" target="_blank" rel="noopener">Landsat 8</a> and <a href="https://developers.google.com/earth-engine/datasets/catalog/LANDSAT_LC09_C02_T1_L2" target="_blank" rel="noopener">Landsat 9</a> datasets</li>
+            <li><b class="tag">Tools</b> <a href="https://www.python.org/" target="_blank" rel="noopener">Python</a> · <a href="https://docs.streamlit.io/" target="_blank" rel="noopener">Streamlit</a> · <a href="https://scipy.org/" target="_blank" rel="noopener">SciPy</a></li>
+            <li><b class="tag">Map</b> Esri World Imagery · satellite base map of the Control Room</li>
+            <li><b class="tag tag--anu">Añú</b> Spelorzi (2007), Universidad Rafael Urdaneta · historical context, not a present-day measurement</li>
+            <li><b class="tag tag--anu">Añú</b> Community chronology of environmental problems in Santa Rosa de Agua (1904–2026) · documentary account, sources to be verified</li>
+            <li><b class="tag tag--anu">Añú</b> Community records · pending consent</li>
+          </ul>
+        </div>
+        <div class="card data">
+          <h3>Use of Super Intelligence (SI)</h3>
+          <ul class="data__list">
+            <li><b class="tag">SI</b> Code of this web experience written with the assistance of Claude (Anthropic)</li>
+            <li class="todo"><b class="tag">SI</b> Background image: state the tool used and whether it was AI-generated</li>
           </ul>
         </div>
       </div>

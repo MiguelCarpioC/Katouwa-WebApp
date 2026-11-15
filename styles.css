@@ -496,3 +496,71 @@ h2 { font-size: clamp(36px, 4.6vw, 68px); }
 .faq b, .summary b { font-weight: 500; color: var(--moon); }
 .data__list a { color: var(--moon); text-decoration: underline; text-decoration-color: rgba(217, 199, 163, 0.5); text-underline-offset: 3px; }
 .data__list a:hover { text-decoration-color: var(--sand); }
+
+/* ───────── Texto en añú bajo el inglés ───────── */
+.anu {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  font-family: var(--f-head);
+  font-style: italic;
+  font-size: clamp(18px, 2vw, 26px);
+  color: var(--sand);
+  text-shadow: 0 2px 18px rgba(6, 34, 43, 0.9);
+}
+.anu--hero { font-size: clamp(22px, 2.6vw, 34px); margin-top: -8px; }
+.anu__tag {
+  font-family: var(--f-num);
+  font-style: normal;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 999px;
+  border: 1px solid rgba(217, 199, 163, 0.45);
+  color: rgba(217, 199, 163, 0.85);
+  transform: translateY(-3px);
+  opacity: 0;
+  transition: opacity .6s ease .5s;
+}
+.anu__text { position: relative; display: inline-block; }
+/* línea de agua que se dibuja bajo la frase */
+.anu__text::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -6px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(217, 199, 163, 0.7), transparent);
+  transform: scaleX(0);
+  transition: transform 1.4s ease 1.2s;
+}
+.anu__ch {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(6px);
+  transform: translateY(10px);
+}
+.is-visible .anu__tag { opacity: 1; }
+.is-visible .anu__text::after { transform: scaleX(1); }
+.is-visible .anu__ch {
+  animation: anu-in .7s cubic-bezier(.2, .7, .2, 1) forwards, anu-wave 6s ease-in-out infinite;
+  animation-delay: calc(.6s + var(--i) * 45ms), calc(2s + var(--i) * 90ms);
+}
+@keyframes anu-in { to { opacity: 1; filter: blur(0); transform: translateY(0); } }
+/* oleaje muy suave, una vez que el texto ya apareció */
+@keyframes anu-wave {
+  0%, 100% { transform: translateY(0); }
+  8% { transform: translateY(-2px); }
+  16% { transform: translateY(0); }
+}
+
+.anu-pair { display: grid; gap: 6px; justify-items: center; }
+.anu-pair--left { justify-items: start; margin-bottom: 18px; }
+.anu-en { font-size: 15px; letter-spacing: 0.02em; color: rgba(232, 238, 242, 0.85); }
+.anu-pair--left .anu-en { font-family: var(--f-head); font-size: 20px; color: var(--moon); }
+
+@media (prefers-reduced-motion: reduce) {
+  .anu__ch, .is-visible .anu__ch { animation: none; opacity: 1; filter: none; transform: none; }
+  .anu__tag { opacity: 1; transition: none; }
+  .anu__text::after { transform: scaleX(1); transition: none; }
+}

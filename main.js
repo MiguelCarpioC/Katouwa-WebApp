@@ -89,6 +89,29 @@
   }
 
   // Aparición de los textos
+  // Texto en añú: cada letra aparece como una pequeña onda sobre el agua
+  document.querySelectorAll('[data-anu]').forEach(el => {
+    const text = el.textContent.trim();
+    el.setAttribute('aria-label', text);
+    el.textContent = '';
+    const tag = document.createElement('span');
+    tag.className = 'anu__tag';
+    tag.setAttribute('aria-hidden', 'true');
+    tag.textContent = 'Añú';
+    el.appendChild(tag);
+    const line = document.createElement('span');
+    line.className = 'anu__text';
+    line.setAttribute('aria-hidden', 'true');
+    [...text].forEach((ch, i) => {
+      const c = document.createElement('span');
+      c.className = 'anu__ch';
+      c.style.setProperty('--i', i);
+      c.textContent = ch === ' ' ? '\u00a0' : ch;
+      line.appendChild(c);
+    });
+    el.appendChild(line);
+  });
+
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => e.isIntersecting && e.target.classList.add('is-visible'));
   }, { threshold: 0.35 });

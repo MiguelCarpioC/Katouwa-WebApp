@@ -10,9 +10,10 @@
   --glass: rgba(232, 238, 242, 0.08);
   --glass-border: rgba(232, 238, 242, 0.22);
 
+  /* One typeface for every text on the home page */
   --f-head: "Fraunces", Georgia, serif;
-  --f-ui: "Inter", system-ui, sans-serif;
-  --f-num: "IBM Plex Mono", ui-monospace, monospace;
+  --f-ui: var(--f-head);
+  --f-num: var(--f-head);
 
   /* Línea de agua dentro de la imagen de fondo (fracción de su alto) */
   --waterline: 0.635;

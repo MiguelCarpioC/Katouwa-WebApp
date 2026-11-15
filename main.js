@@ -41,7 +41,7 @@
 
     const w = imgW * 0.30;      // ancho de .palafitos (30% del track)
     const h = w * (120 / 400);
-    palafitos.style.top = `${WATERLINE * imgH - h * 0.72}px`;
+    if (palafitos) palafitos.style.top = `${WATERLINE * imgH - h * 0.72}px`;
     update();
   }
 

@@ -1,0 +1,11 @@
+{
+  "name": "katouwa-webapp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "KATOUWA · Custodios del Manglar — home y Sala de Control Biocultural",
+  "scripts": {
+    "start": "node server.js",
+    "build:data": "python3 tools/build_sala_data.py"
+  },
+  "engines": { "node": ">=18" }
+}

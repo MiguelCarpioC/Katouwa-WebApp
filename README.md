@@ -17,3 +17,8 @@ python3 -m http.server 8000
 ```
 
 y abrir http://localhost:8000
+
+## Despliegue en Railway
+
+El repo incluye `server.js` (servidor estático sin dependencias), `package.json` y `railway.json`.
+Railway detecta Node, ejecuta `npm start` y usa la variable `PORT`. Comprobación de salud: `/health`.

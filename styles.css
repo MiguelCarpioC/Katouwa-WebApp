@@ -482,3 +482,7 @@ h2 { font-size: clamp(36px, 4.6vw, 68px); }
 }
 
 .cue--down { flex-direction: column; }
+
+.team__challenge { font-family: var(--f-num); font-size: 12px; color: rgba(232, 238, 242, 0.7); margin: -12px 0 20px; }
+.summary__q { margin-top: 12px; font-family: var(--f-head); font-size: 18px !important; }
+.summary__q b { font-weight: 400; color: var(--sand); }

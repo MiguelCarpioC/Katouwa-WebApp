@@ -1,0 +1,27 @@
+{
+  "site_status": "USER_SELECTED_MANGROVE_POINTS_NOT_FIELD_VERIFIED",
+  "coordinate_convention": "WGS84 decimal degrees; preserve six digits; west longitude negative",
+  "source_notes": [
+    "User-selected P1/P2 as mangrove points in prior KATOUWA project discussions (14 Nov 2026).",
+    "Contextual place reference: https://mapcarta.com/es/28822350 (Manglares Capitán Chico).",
+    "Two geographic points are not validated boundaries or pixel land-cover classifications."
+  ],
+  "sites": [
+    {
+      "id": "MANGROVE_POINT_1",
+      "name": "Mangrove Point 1 · Capitán Chico",
+      "latitude": 10.705247,
+      "longitude": -71.587554,
+      "category": "user-selected mangrove point",
+      "warning": "User-selected point P1, 6-decimal coordinates. A MODIS 250 m center pixel may contain water, buildings, and vegetation; species/purity not independently validated."
+    },
+    {
+      "id": "MANGROVE_POINT_2",
+      "name": "Mangrove Point 2 · Capitán Chico",
+      "latitude": 10.700986,
+      "longitude": -71.58191,
+      "category": "user-selected mangrove point",
+      "warning": "User-selected point P2, 6-decimal coordinates. A MODIS 250 m center pixel may contain water, buildings, and vegetation; species/purity not independently validated."
+    }
+  ]
+}

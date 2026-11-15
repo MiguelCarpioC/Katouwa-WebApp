@@ -110,7 +110,8 @@
           </div>
           <div class="team__body">
             <h2 class="team__name">KATOUWA</h2>
-            <p class="team__tag">Custodios del Manglar</p>
+            <p class="team__tag">Two Skies, One Territory</p>
+            <p class="team__challenge" lang="en">NASA Space Apps 2026 · Be an Earth System Trend Detective!</p>
             <ul class="team__members">
               <li class="todo">Nombre Apellido <span>· Rol</span></li>
               <li class="todo">Nombre Apellido <span>· Rol</span></li>
@@ -126,28 +127,29 @@
         <p class="eyebrow">Descripción · Project description</p>
         <div class="card summary" lang="en">
           <h3>Summary</h3>
-          <p>KATOUWA is a bio-cultural monitoring platform for the mangroves of Santa Rosa de Agua, Lake Maracaibo, co-designed with the Añú people. It looks at the territory from two skies: NASA Earth observation from orbit, and the ancestral knowledge of Añú fishers.</p>
+          <p>Environmental change cannot always be understood through a satellite pixel alone. KATOUWA is a reproducible Earth-system trend investigation prototype for the mangroves of Capitán Chico, near Santa Rosa de Agua, Venezuela. It reads NASA satellite and climate time series, filters them by quality, and shows which findings are statistically supported, which are uncertain, and which cannot be inferred. A second evidence stream, consent-based community knowledge, helps interpret the change.</p>
+          <p class="summary__q">What changed? Where? How much? Is it significant? <b>Whose knowledge helps interpret it?</b></p>
         </div>
         <div class="faq" lang="en">
           <details open>
             <summary>What exactly does it do?</summary>
-            <p>It joins satellite indicators of mangrove health with field observations from Añú fishers in one Bio-cultural Control Room.</p>
+            <p>It turns Landsat (30 m) and MODIS (250 m) vegetation indices and NASA POWER climate data into annual trends for two sampling points and a ~20 ha candidate vegetation area, with Theil–Sen slopes and Kendall tests, and labels every result with its source and limits.</p>
           </details>
           <details>
             <summary>How does it work?</summary>
-            <p>NASA satellite layers become simple indicators per mangrove zone. Fishers add reports from the water. The room compares both and raises alerts when they decline or disagree.</p>
+            <p>A Python pipeline exports and quality-filters the time series. The Bio-cultural Control Room maps the study area, shows each point's trend and evidence summary, and encodes the series as sound (220–660 Hz) and Chladni patterns. Community records enter only with consent and provenance.</p>
           </details>
           <details>
             <summary>What benefits does it have?</summary>
-            <p>Early warning of mangrove loss and pollution, Añú knowledge recognised as data, and evidence the community can use to defend its territory.</p>
+            <p>An honest, inspectable view of change: what the data supports, what it does not, and where local knowledge adds context, instead of an overstated alarm or recovery claim.</p>
           </details>
           <details>
             <summary>What do you hope to achieve?</summary>
-            <p>A living, community-owned record of the mangrove that guides restoration and local decisions.</p>
+            <p>A mangrove boundary verified with the community and field measurements, longer series (MODIS since 2000), water indicators (NDWI, surface temperature), and consented community records.</p>
           </details>
           <details>
             <summary>What tools did you use?</summary>
-            <p>HTML, CSS and JavaScript for the web app; flat SVG graphics. <span class="todo">Add: data-processing tools, languages, hardware.</span></p>
+            <p>Python, pandas, SciPy, Plotly and Streamlit for the analysis pipeline; Google Earth Engine exports; HTML, CSS and JavaScript (SVG, Canvas, Web Audio) for this web app.</p>
           </details>
         </div>
       </div>
@@ -177,11 +179,12 @@
         <div class="card data">
           <h3>Datos y recursos</h3>
           <ul class="data__list">
-            <li><b class="tag tag--nasa">NASA</b> Landsat 8/9 (NASA/USGS) · cambio de cobertura del manglar</li>
-            <li><b class="tag tag--nasa">NASA</b> Harmonized Landsat Sentinel-2 (HLS) · salud de la vegetación (NDVI)</li>
-            <li><b class="tag tag--nasa">NASA</b> ORNL DAAC · Global Mangrove Distribution, Aboveground Biomass and Canopy Height</li>
-            <li><b class="tag tag--nasa">NASA</b> GEDI · altura del dosel</li>
-            <li><b class="tag tag--anu">Añú</b> Observaciones comunitarias de pescadores, con consentimiento</li>
+            <li><b class="tag tag--nasa">NASA</b> Landsat 8-9 Collection 2 Level 2 (NASA/USGS) · NDVI 30 m, mayo–octubre, 2019–2025</li>
+            <li><b class="tag tag--nasa">NASA</b> MODIS MOD13Q1 v061 · NDVI y EVI 250 m cada 16 días, filtrados por calidad</li>
+            <li><b class="tag tag--nasa">NASA</b> NASA POWER (MERRA-2) · temperatura y lluvia regional, 2019–2025</li>
+            <li><b class="tag">GEE</b> Google Earth Engine · exportación de las series</li>
+            <li><b class="tag tag--anu">Añú</b> Spelorzi (2007), Universidad Rafael Urdaneta · contexto histórico, no medición actual</li>
+            <li><b class="tag tag--anu">Añú</b> Registros comunitarios: pendientes de consentimiento</li>
           </ul>
         </div>
         <div class="card data">

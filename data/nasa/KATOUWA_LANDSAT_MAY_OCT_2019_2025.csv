@@ -1,0 +1,15 @@
+site,year,NDVI,valid_obs,water_fraction,scene_count,period,product
+P1,2019.0,0.3526628879824498,10,0.0,21,May-October,Landsat Collection 2 Level 2
+P2,2019.0,0.6036925926820791,8,0.0,21,May-October,Landsat Collection 2 Level 2
+P1,2020.0,0.41749800238170354,12,0.0,24,May-October,Landsat Collection 2 Level 2
+P2,2020.0,0.6594777389590611,5,0.0,24,May-October,Landsat Collection 2 Level 2
+P1,2021.0,0.43255541981527507,12,0.0,23,May-October,Landsat Collection 2 Level 2
+P2,2021.0,0.6148167118936649,8,0.0,23,May-October,Landsat Collection 2 Level 2
+P1,2022.0,0.4440281690140844,23,0.0,46,May-October,Landsat Collection 2 Level 2
+P2,2022.0,0.5936395382070954,22,0.0,46,May-October,Landsat Collection 2 Level 2
+P1,2023.0,0.40568402581938956,15,0.0,46,May-October,Landsat Collection 2 Level 2
+P2,2023.0,0.5336254964362273,16,0.0,46,May-October,Landsat Collection 2 Level 2
+P1,2024.0,0.49727396637891874,15,0.0,44,May-October,Landsat Collection 2 Level 2
+P2,2024.0,0.6498424964064714,15,0.0,44,May-October,Landsat Collection 2 Level 2
+P1,2025.0,0.5101891418304536,22,0.0,45,May-October,Landsat Collection 2 Level 2
+P2,2025.0,0.6087109832298601,18,0.0,45,May-October,Landsat Collection 2 Level 2

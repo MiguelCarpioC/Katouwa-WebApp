@@ -8,12 +8,20 @@
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
   // ───────── Mapa ─────────
+  const imagery = (window.KATOUWA_CONFIG || {}).imagery;
+  $('attribution').textContent = imagery ? imagery.attribution : '';
   const map = window.KatouwaMap.createMap($('mapSvg'), {
+    imagery,
+    onImageryStatus: ({ pending, failed, loaded }) => {
+      // Sin conexión a las teselas: avisar en lugar de dejar el mapa vacío
+      $('attribution').textContent = !pending && failed && !loaded
+        ? 'No se pudo cargar la imagen satelital (sin conexión)'
+        : imagery.attribution;
+    },
     onSiteClick: (id, latlon) => select(id, latlon),
-    onWaterClick: latlon => select('WATER', latlon),
     onEmptyClick: () => {
       clearSelection();
-      $('pulseEmpty').textContent = 'Elige P1, P2, la zona ROI o el agua';
+      $('pulseEmpty').textContent = 'Elige P1, P2, la zona ROI o el lago';
     },
   });
 
@@ -76,6 +84,7 @@
     state.selection = { id, latlon };
     map.select(id, latlon);
     $('roiChip').classList.toggle('is-selected', id === 'ROI');
+    $('waterChip').classList.toggle('is-selected', id === 'WATER');
     const req = ++reqId;
     const { data } = await api.getReading(state.territory, id, { year: state.year, lat: latlon && latlon[0], lon: latlon && latlon[1] });
     if (req !== reqId || !data) return;
@@ -90,6 +99,7 @@
     reqId++;
     map.clear();
     $('roiChip').classList.remove('is-selected');
+    $('waterChip').classList.remove('is-selected');
     $('zoneCard').hidden = true;
     $('pulseLive').hidden = true;
     $('pulseEmpty').hidden = false;
@@ -103,12 +113,28 @@
     $('voicesCount').innerHTML = n
       ? `<b>${n}</b> registros con consentimiento`
       : `<b>0</b> registros · ${esc(c ? c.pendingMessage : 'Pendiente de autorización de la comunidad')}`;
-    $('voicesHistory').innerHTML = (c && c.historical || []).map(h => `
-      <div class="voices-panel__item">
-        <span class="voices-panel__period">${esc(h.period)} · Contexto histórico</span>
-        <p>${esc(h.finding)}</p>
-        <span class="voices-panel__src">${esc(h.source_label)}</span>
-      </div>`).join('');
+    const chrono = c && c.chronology;
+    $('timeline').innerHTML = chrono ? chrono.events.map(e => `
+      <li data-from="${e.from}" data-to="${e.to}">
+        <details>
+          <summary><span class="timeline__period">${esc(e.period)}</span>${esc(e.event)}</summary>
+          <p>${esc(e.indicators)}</p>
+          <p class="timeline__impact">${esc(e.impact)}</p>
+        </details>
+      </li>`).join('') : '';
+    $('timelineSrc').textContent = chrono ? `${chrono.source}. ${chrono.status}.` : '';
+    markTimeline();
+  }
+
+  // Resalta en la cronología los eventos del año elegido
+  function markTimeline() {
+    let first = null;
+    $('timeline').querySelectorAll('li').forEach(li => {
+      const on = Number(li.dataset.from) <= state.year && state.year <= Number(li.dataset.to);
+      li.classList.toggle('is-year', on);
+      if (on && !first) first = li;
+    });
+    if (first) first.parentElement.scrollTop = first.offsetTop - first.parentElement.offsetTop - 8;
   }
 
   // ───────── Tarjeta ─────────
@@ -150,7 +176,14 @@
     }
 
     const color = r.kind === 'water' ? '#2F93C4' : '#5FD39A';
-    $('zcSections').innerHTML = r.sections.map(sec => `
+    $('zcSections').innerHTML = r.sections.map(sec => sec.kind === 'events' ? `
+      <section class="card-sec card-sec--events">
+        <header><p class="zone-card__sub">${esc(sec.title)}</p><span class="prov">${esc(sec.provenance || '')}</span></header>
+        ${sec.events.length ? `<ul class="events">${sec.events.map(e => `
+          <li><span class="timeline__period">${esc(e.period)}</span><b>${esc(e.event)}</b><p>${esc(e.impact)}</p></li>`).join('')}</ul>`
+          : `<p class="events__empty">${esc(sec.empty || '')}</p>`}
+        ${sec.note ? `<p class="events__note">${esc(sec.note)}</p>` : ''}
+      </section>` : `
       <section class="card-sec">
         <header><p class="zone-card__sub">${esc(sec.title)}</p><span class="prov">${esc(sec.provenance || '')}</span></header>
         <dl class="rows">${sec.rows.map(row => `
@@ -210,10 +243,12 @@
   year.addEventListener('input', () => {
     paintYear();
     state.year = Number(year.value);
+    markTimeline();
     if (state.selection) select(state.selection.id, state.selection.latlon);
   });
 
   $('roiChip').addEventListener('click', () => select('ROI', null));
+  $('waterChip').addEventListener('click', () => select('WATER', null));
   $('zcClose').addEventListener('click', clearSelection);
   document.addEventListener('keydown', e => e.key === 'Escape' && clearSelection());
 

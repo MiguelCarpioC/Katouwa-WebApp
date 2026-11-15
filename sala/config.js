@@ -12,4 +12,11 @@ window.KATOUWA_CONFIG = {
   timeoutMs: 8000,
   // Si el backend no responde, usar el paquete local en vez de mostrar un error.
   fallbackToStatic: true,
+
+  // Imagen satelital de fondo (teselas XYZ en Web Mercator).
+  imagery: {
+    url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+    attribution: 'Imagen satelital: Esri, Maxar, Earthstar Geographics y la comunidad de usuarios GIS',
+    maxZoom: 18,
+  },
 };

@@ -70,21 +70,26 @@
             <span class="roi-chip__title" id="roiChipTitle">≈ 20,05 ha</span>
             <span class="roi-chip__note">Sin polígono en los datos</span>
           </button>
+          <button class="roi-chip roi-chip--water" id="waterChip" type="button">
+            <span class="roi-chip__kicker">Lago de Maracaibo</span>
+            <span class="roi-chip__note">Sin datos satelitales del agua todavía</span>
+          </button>
           <section class="voices-panel" id="voicesPanel" aria-label="Voces de la comunidad">
             <p class="voices-panel__title">Voces de la comunidad</p>
             <p class="voices-panel__count" id="voicesCount"></p>
-            <div id="voicesHistory"></div>
+            <p class="voices-panel__sub">Memoria del territorio · 1904–2026</p>
+            <ol class="timeline" id="timeline"></ol>
+            <p class="voices-panel__src" id="timelineSrc"></p>
           </section>
         </div>
 
         <div class="map-empty" id="mapEmpty" hidden></div>
 
         <div class="legend" id="legend" aria-label="Leyenda">
-          <span><i class="sw sw--green"></i><b>vegetación</b></span>
-          <span><i class="sw sw--blue"></i><b>lago</b></span>
+          <span><i class="sw sw--aoi"></i><b>área de estudio</b></span>
           <span><i class="sw sw--site"></i><b>punto de muestreo</b></span>
-          <em>Fondo ilustrativo</em>
         </div>
+        <p class="attribution" id="attribution"></p>
 
         <!-- Tarjeta de zona (aparece al hacer clic) -->
         <article class="zone-card" id="zoneCard" hidden aria-live="polite">

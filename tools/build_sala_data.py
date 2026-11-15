@@ -174,6 +174,20 @@ historical = [
 ]
 community = [r for r in read("community_records_TEMPLATE.csv") if r.get("consent_status", "").strip().lower() in ("granted", "otorgado", "yes", "si", "sí")]
 
+# Memoria del territorio: cronología de problemáticas aportada por la comunidad (1904–2026)
+with open(ROOT / "data" / "comunidad" / "cronologia_santa_rosa_de_agua_1904_2026.csv", newline="", encoding="utf-8") as f:
+    chronology = [
+        {
+            "period": r["periodo"],
+            "from": int(r["anio_inicio"]),
+            "to": int(r["anio_fin"]),
+            "event": r["evento"],
+            "indicators": r["datos_indicadores"],
+            "impact": r["impacto_santa_rosa"],
+        }
+        for r in csv.DictReader(f)
+    ]
+
 bundle = {
     "package": "KATOUWA_2026_ROI_VALIDATED",
     "period": [2019, 2025],
@@ -202,6 +216,12 @@ bundle = {
     "power": power,
     "historical": historical,
     "community": community,
+    "chronology": {
+        "title": "Cronología de problemáticas e impactos ambientales en Santa Rosa de Agua (1904–2026)",
+        "source": "Documento aportado por la comunidad / equipo KATOUWA",
+        "status": "Relato documental: fuentes por verificar, no es una medición satelital",
+        "events": chronology,
+    },
 }
 
 OUT.parent.mkdir(parents=True, exist_ok=True)

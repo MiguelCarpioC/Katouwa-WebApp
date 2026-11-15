@@ -40,7 +40,6 @@ Todas las coordenadas son `[lat, lon]` o `lat`/`lon` en WGS84, con seis decimale
   "name": "Santa Rosa de Agua",
   "years": [2019, 2025],
   "aoi": [[10.687936, -71.599144], [10.716956, -71.607556], [10.724620, -71.584958], [10.691958, -71.575592]],
-  "scene": { "illustrative": true, "water": [[[lat, lon], ...]], "vegetation": [[[lat, lon], ...]] },
   "sites": [
     { "id": "P1", "name": "Mangrove Point 1 · Capitán Chico", "lat": 10.705247, "lon": -71.587554,
       "status": "Punto elegido por el equipo, no verificado en campo" }
@@ -50,20 +49,27 @@ Todas las coordenadas son `[lat, lon]` o `lat`/`lon` en WGS84, con seis decimale
   "community": {
     "records": [],
     "pendingMessage": "Pendiente de autorización de la comunidad",
-    "historical": [{ "period": "2006–2007", "event": "...", "finding": "...", "source_label": "...", "verification_status": "..." }]
+    "historical": [{ "period": "2006–2007", "event": "...", "finding": "...", "source_label": "...", "verification_status": "..." }],
+    "chronology": {
+      "title": "Cronología de problemáticas e impactos ambientales en Santa Rosa de Agua (1904–2026)",
+      "source": "Documento aportado por la comunidad / equipo KATOUWA",
+      "status": "Relato documental: fuentes por verificar, no es una medición satelital",
+      "events": [{ "period": "2023 (Jun – Ago)", "from": 2023, "to": 2023, "event": "...", "indicators": "...", "impact": "..." }]
+    }
   }
 }
 ```
 
 - `aoi`: área de estudio. Todo lo de fuera se oscurece.
-- `scene`: fondo **ilustrativo** (agua y vegetación). Si el backend envía una clasificación real de cobertura, poner `illustrative: false`.
+- El fondo del mapa es imagen satelital en teselas (configurable en `sala/config.js` → `imagery`); el backend no la envía.
 - `roi.polygon`: `null` mientras no se exporte la geometría del ROI. Cuando llegue (`[[lat, lon], ...]`), se podrá dibujar.
+- `community.chronology`: memoria del territorio (fuente: `data/comunidad/cronologia_santa_rosa_de_agua_1904_2026.csv`). Se muestra en el panel de voces y los eventos de cada año aparecen en la tarjeta.
 - `community.records`: **solo** registros con consentimiento (columnas de `data/nasa/community_records_TEMPLATE.csv`). Si está vacío se muestra `pendingMessage`.
 - Un territorio sin datos responde `{ "id": "donana", "name": "Doñana", "empty": true, "message": "..." }`.
 
 ## `GET /territories/{territoryId}/targets/{targetId}/reading?year=2025&lat=…&lon=…`
 
-`targetId`: un punto (`P1`, `P2`, …), `ROI` o `WATER` (clic en el agua; `lat`/`lon` dicen dónde).
+`targetId`: un punto (`P1`, `P2`, …), `ROI` o `WATER` (Lago de Maracaibo).
 
 ```json
 {
@@ -95,6 +101,7 @@ Todas las coordenadas son `[lat, lon]` o `lat`/`lon` en WGS84, con seis decimale
 
 - `verdict.tone`: `up` / `down` (solo si p < 0,05 y sigue así al quitar cualquier año), `neutral` o `none` (sin datos).
 - `evidence` (opcional, se usa en el ROI): `{ "sentence": "Cambio no significativo", "items": [{ "label": "Pendiente", "text": "+0,0048 /año" }, ...] }`.
+- Una sección puede ser de eventos: `{ "kind": "events", "title": "Memoria del territorio · 2023", "provenance": "Cronología comunitaria", "events": [{ "period", "event", "impact" }], "empty": "...", "note": "..." }`.
 - `rows`: con `value` (+ `unit`, `decimals`) o con `text` ya formateado. `value: null` se muestra como "sin dato". Si trae `series`, se dibuja un minigráfico.
 - `signals`: series que el Pulso del territorio puede sonificar. Regla: valor → normalizado entre 0 y 1 → 220–660 Hz. Un `value: null` es un año sin dato (silencio).
 

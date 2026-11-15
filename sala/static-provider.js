@@ -11,27 +11,6 @@
   const fmt = (v, d) => Number(v).toLocaleString('es', { minimumFractionDigits: d, maximumFractionDigits: d });
   const signed = (v, d) => (v > 0 ? '+' : v < 0 ? '−' : '') + fmt(Math.abs(v), d);
 
-  // ───────── Geometría ilustrativa (no es una clasificación de cobertura) ─────────
-  const SHORE = [
-    [10.760, -71.6000], [10.735, -71.5950], [10.724, -71.5915], [10.716, -71.5895],
-    [10.709, -71.5855], [10.704, -71.5835], [10.700, -71.5795], [10.695, -71.5775],
-    [10.688, -71.5745], [10.660, -71.5700],
-  ];
-  const shoreLon = lat => {
-    for (let i = 0; i < SHORE.length - 1; i++) {
-      const [a, la] = SHORE[i], [b, lb] = SHORE[i + 1];
-      if (lat <= a && lat >= b) return la + (lb - la) * ((a - lat) / (a - b));
-    }
-    return SHORE[lat > SHORE[0][0] ? 0 : SHORE.length - 1][1];
-  };
-  const band = (latMax, latMin, offset) => {
-    const pts = [];
-    for (let lat = latMax; lat > latMin; lat -= 0.0008) pts.push([lat, shoreLon(lat) + offset]);
-    pts.push([latMin, shoreLon(latMin) + offset]);
-    return pts;
-  };
-  const fringe = [...band(10.758, 10.662, 0.0004), ...band(10.758, 10.662, -0.0042).reverse()];
-
   // Traducción al español de las afirmaciones históricas (el CSV original está en inglés)
   const HISTORICAL_ES = {
     '2006–2007|Community perception study': {
@@ -51,17 +30,13 @@
     name: 'Santa Rosa de Agua',
     years: [Y0, Y1],
     aoi: [[10.687936, -71.599144], [10.716956, -71.607556], [10.724620, -71.584958], [10.691958, -71.575592]],
-    scene: {
-      illustrative: true,
-      water: [[...SHORE, [10.660, -71.48], [10.760, -71.48]]],
-      vegetation: [fringe],
-    },
     sites: D.sites,
     roi: { id: 'ROI', name: 'Zona candidata ROI', area_ha: D.roi.area_ha, polygon: D.roi.polygon, status: D.roi.status },
     community: {
       records: D.community,
       pendingMessage: 'Pendiente de autorización de la comunidad',
       historical: D.historical.map(h => ({ ...h, ...(HISTORICAL_ES[h.period + '|' + h.event] || {}) })),
+      chronology: D.chronology,
     },
   };
 
@@ -85,6 +60,19 @@
     if (t.p < 0.05 && stable) return { label: `${t.slope_per_year > 0 ? 'Aumento' : 'Descenso'} significativo · p = ${p}`, tone: t.slope_per_year > 0 ? 'up' : 'down' };
     if (t.p < 0.05) return { label: `${t.slope_per_year > 0 ? 'Aumento' : 'Descenso'} nominal · p = ${p} · sensible a quitar un año`, tone: 'neutral' };
     return { label: `Cambio no significativo · p = ${p}`, tone: 'neutral' };
+  }
+
+  // Memoria del territorio: eventos de la cronología comunitaria que tocan ese año
+  function memory(year) {
+    const ev = D.chronology.events.filter(e => e.from <= year && year <= e.to);
+    return {
+      title: `Memoria del territorio · ${year}`,
+      provenance: 'Cronología comunitaria',
+      kind: 'events',
+      events: ev.map(e => ({ period: e.period, event: e.event, impact: e.impact })),
+      empty: 'Sin eventos registrados para este año',
+      note: D.chronology.status,
+    };
   }
 
   function trendRow(t, label = 'Tendencia (Theil–Sen)') {
@@ -145,6 +133,7 @@
           ],
         },
         climate(year),
+        memory(year),
       ],
       notes: [
         'Un cambio de NDVI no prueba mortandad, contaminación ni recuperación.',
@@ -193,6 +182,7 @@
           ],
         },
         climate(year),
+        memory(year),
       ],
       notes: [
         'El paquete no incluye el polígono del ROI: por eso no se dibuja en el mapa.',
@@ -224,6 +214,7 @@
           ],
         },
         climate(year),
+        memory(year),
       ],
       notes: [],
       signals: [t2mSignal],

@@ -748,5 +748,148 @@ window.KATOUWA_DATA = {
    "verification_status": "Historical interpretation reported by thesis author"
   }
  ],
- "community": []
+ "community": [],
+ "chronology": {
+  "title": "Cronología de problemáticas e impactos ambientales en Santa Rosa de Agua (1904–2026)",
+  "source": "Documento aportado por la comunidad / equipo KATOUWA",
+  "status": "Relato documental: fuentes por verificar, no es una medición satelital",
+  "events": [
+   {
+    "period": "1904",
+    "from": 1904,
+    "to": 1904,
+    "event": "Primeros reportes de microalgas",
+    "indicators": "Registros de la empresa Chevron documentan la presencia de manchas de algas verdes cerca de sus primeros taladros de perforación.",
+    "impact": "Antecedente biológico temprano de las cianobacterias que, un siglo después, colapsarían las costas de Santa Rosa."
+   },
+   {
+    "period": "1922 – 1940",
+    "from": 1922,
+    "to": 1940,
+    "event": "Inicio de la explotación petrolera masiva",
+    "indicators": "Tras el reventón del pozo Barroso II (1922), comienza la instalación intensiva de pozos y oleoductos sublacustres en la cuenca.",
+    "impact": "Primeras trazas de hidrocarburos arrastradas por las corrientes hacia el norte del lago y las riberas palafíticas."
+   },
+   {
+    "period": "1953 – 1956",
+    "from": 1953,
+    "to": 1956,
+    "event": "Dragado del Canal de Navegación",
+    "indicators": "Apertura y profundización del canal de navegación del Lago de Maracaibo para permitir el paso de buques tanqueros de gran calado.",
+    "impact": "Entrada masiva de agua salada del Golfo de Venezuela que alteró el equilibrio estuarino, desplazando especies de agua dulce tradicionales de la pesca local."
+   },
+   {
+    "period": "1950 – 1979",
+    "from": 1950,
+    "to": 1979,
+    "event": "Expansión urbana sin saneamiento y derrames",
+    "indicators": "Se registran promedios históricos de 15 derrames mensuales en el lago, mientras Maracaibo crece sin plantas de tratamiento de aguas servidas.",
+    "impact": "Las más de 100 cañadas de la ciudad comienzan a descargar aguas negras y basura directamente hacia la costa norte y el manglar de Capitán Chico."
+   },
+   {
+    "period": "1981",
+    "from": 1981,
+    "to": 1981,
+    "event": "Creación del ICLAM y alertas sanitarias",
+    "indicators": "Se funda el Instituto para el Control y la Conservación de la Cuenca del Lago de Maracaibo (ICLAM) para monitorear la crisis ecológica.",
+    "impact": "Los primeros muestreos bacteriológicos detectan niveles críticos de coliformes fecales, restringiendo el uso recreativo de las playas del norte de Maracaibo."
+   },
+   {
+    "period": "1990 – 1999",
+    "from": 1990,
+    "to": 1999,
+    "event": "Aceleración de la eutrofización y tala de mangle",
+    "indicators": "Acumulación sostenida de nitrógeno y fósforo en el agua; expansión de rellenos urbanos sobre los humedales costeros.",
+    "impact": "Reducción de la franja protectora de mangle rojo (Rhizophora mangle), aumentando la vulnerabilidad de los palafitos ante el oleaje."
+   },
+   {
+    "period": "2004 (Mayo – Ago)",
+    "from": 2004,
+    "to": 2004,
+    "event": "Primera crisis masiva de la lenteja de agua (Lemna sp.)",
+    "indicators": "Brote explosivo de Lemna aequinoctialis y Lemna obscura que cubrió entre el 14% y 15% del lago (1.870 km² y 93 millones de m³).",
+    "impact": "Paralización total de la pesca artesanal, bloqueo de lanchas, mortandad de peces por anoxia y protestas vecinales por olores fétidos."
+   },
+   {
+    "period": "2005 – 2011",
+    "from": 2005,
+    "to": 2011,
+    "event": "Ciclos recurrentes de Lemna y metales pesados",
+    "indicators": "Cada año entre mayo y septiembre reaparecen mantos de lenteja de agua; estudios detectan plomo, níquel, cromo y arsénico en la biomasa vegetal.",
+    "impact": "Cierre temporal de restaurantes del bulevar turístico durante los picos de descomposición y pérdida de ingresos familiares."
+   },
+   {
+    "period": "2007",
+    "from": 2007,
+    "to": 2007,
+    "event": "Diagnóstico de pérdida de calidad de vida",
+    "indicators": "Investigaciones de postgrado de la Universidad Rafael Urdaneta (URU) documentan la destrucción acelerada del mangle en Santa Rosa.",
+    "impact": "Se confirma la relación directa entre la degradación del humedal, el aumento de vectores de enfermedades y el deterioro socioeconómico de los pobladores."
+   },
+   {
+    "period": "2012 (13 de feb)",
+    "from": 2012,
+    "to": 2012,
+    "event": "Creación del Parque Comunal Tierra de Sueños",
+    "indicators": "Se delimitan 130 hectáreas de manglar en el sector Punta Capitán Chico para intentar frenar la deforestación y el relleno ilegal.",
+    "impact": "A pesar de la figura de protección, el ecosistema sigue recibiendo descargas cloacales sin depurar desde las viviendas adyacentes."
+   },
+   {
+    "period": "2016 – 2021",
+    "from": 2016,
+    "to": 2021,
+    "event": "Colapso de infraestructura petrolera y basura crónica",
+    "indicators": "Más de 10.000 instalaciones petroleras abandonadas o sin mantenimiento filtran crudo de forma continua; falla el aseo urbano en Maracaibo.",
+    "impact": "El plástico y el petróleo cubren hasta el 90% de las orillas. Jornadas de limpieza extraen 600 kg de basura en apenas 3 horas sin frenar el flujo."
+   },
+   {
+    "period": "2022 (28 de oct)",
+    "from": 2022,
+    "to": 2022,
+    "event": "Inundación severa y deposición de desechos",
+    "indicators": "Lluvias torrenciales y crecida del nivel del lago inundan más de 200 viviendas palafíticas y costeras en Santa Rosa de Agua.",
+    "impact": "Al bajar el nivel del agua, quedaron expuestas toneladas de plásticos, vidrios, metales y crudo atrapados entre los pilotes y raíces."
+   },
+   {
+    "period": "2022 (Balance anual)",
+    "from": 2022,
+    "to": 2022,
+    "event": "Repunte de derrames petroleros",
+    "indicators": "Organizaciones ambientales documentan entre 22 y 32 grandes derrames en el Lago de Maracaibo durante todo el año.",
+    "impact": "Pescadores reportan redes inutilizadas por el alquitrán y peces impregnados de hidrocarburos imposibles de vender o consumir."
+   },
+   {
+    "period": "2023 (Jun – Ago)",
+    "from": 2023,
+    "to": 2023,
+    "event": "Explosión de cianobacterias (verdín) y caída comercial",
+    "indicators": "Floración masiva de la microalga tóxica Microcystis en toda la costa norte; se activa el Plan Maestro de Rescate del Lago.",
+    "impact": "El comercio turístico y gastronómico de Santa Rosa cae un 25%. Se reportan brotes de asma, alergias y erupciones cutáneas en niños y pescadores."
+   },
+   {
+    "period": "2024",
+    "from": 2024,
+    "to": 2024,
+    "event": "Persistencia del verdín y crisis turística",
+    "indicators": "El Ministerio de Ecosocialismo reporta miles de jornadas de saneamiento, pero persisten manchas de crudo y cianobacterias en épocas de calor.",
+    "impact": "Reportajes de medios como Crónica Uno documentan el abandono progresivo de locales del parador turístico por la pestilencia y el aspecto del agua."
+   },
+   {
+    "period": "2025",
+    "from": 2025,
+    "to": 2025,
+    "event": "Emergencia ambiental en manglares y baja productividad",
+    "indicators": "Continúa el arrastre de desechos sólidos por las cañadas durante las lluvias y se reportan incidentes de extravío en zonas densas del manglar Capitán Chico.",
+    "impact": "Los cerca de 1.200 pescadores de la comunidad deben navegar cada vez más lejos del estuario para hallar zonas libres de crudo y verdín."
+   },
+   {
+    "period": "2026 (Feb – Oct)",
+    "from": 2026,
+    "to": 2026,
+    "event": "Evaluaciones de balnearios y nuevos derrames",
+    "indicators": "En febrero, el ICLAM evalúa el balneario Santa Rosa de Agua bajo el Decreto 883. En agosto, septiembre y octubre se denuncian nuevos derrames de crudo en costas de Maracaibo y 6 municipios del Zulia.",
+    "impact": "Persiste la inoperatividad de las plantas de tratamiento anunciadas en 2023, manteniendo el agua contaminada por mezcla de petróleo, verdín y aguas servidas."
+   }
+  ]
+ }
 };

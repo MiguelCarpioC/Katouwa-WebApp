@@ -46,6 +46,14 @@
       );
     },
 
+    /** Análisis integrado del territorio (NASA + comunidad). */
+    getAnalysis(territoryId) {
+      return withFallback(
+        () => getJSON(`/territories/${encodeURIComponent(territoryId)}/analysis`),
+        () => local.analysis(territoryId)
+      );
+    },
+
     /** Lectura de un punto (P1, P2), del ROI o del agua (WATER) para un año. */
     getReading(territoryId, targetId, { year, lat, lon } = {}) {
       return withFallback(

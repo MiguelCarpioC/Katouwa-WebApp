@@ -105,6 +105,30 @@ Todas las coordenadas son `[lat, lon]` o `lat`/`lon` en WGS84, con seis decimale
 - `rows`: con `value` (+ `unit`, `decimals`) o con `text` ya formateado. `value: null` se muestra como "sin dato". Si trae `series`, se dibuja un minigráfico.
 - `signals`: series que el Pulso del territorio puede sonificar. Regla: valor → normalizado entre 0 y 1 → 220–660 Hz. Un `value: null` es un año sin dato (silencio).
 
+## `GET /territories/{territoryId}/analysis`
+
+Vista «Análisis integrado» de la Sala: une los resultados de NASA con la memoria de la comunidad.
+Sin backend, la calcula `sala/static-provider.js` a partir del paquete validado.
+
+```json
+{
+  "period": [2019, 2025],
+  "headline": { "title": "...", "text": ["...", "..."] },
+  "questions": [{ "q": "¿Qué cambió?", "a": "...", "detail": "..." }],
+  "zones": [{ "id": "ROI", "label": "Zona candidata ROI", "series": [{ "year": 2019, "value": 0.830 }],
+              "trend": { "n": 7, "slope_per_year": 0.00484, "ci95": [-0.00107, 0.01191], "p": 0.069, "leave_one_out_p": [] },
+              "first": { "year": 2019, "value": 0.830 }, "last": { "year": 2025, "value": 0.854 }, "verdict": "...", "robust": false }],
+  "events": [{ "from": 2023, "to": 2023, "period": "2023 (Jun – Ago)", "event": "...", "impact": "..." }],
+  "climate": { "rain": [{ "year": 2019, "value": 637.4 }], "wet": { "year": 2022, "value": 1140.4 }, "tRange": [28.46, 30.22], "provenance": "...", "note": "..." },
+  "quality": { "modis": [{ "id": "P1", "valid": 73, "total": 161, "rows": [{ "year": 2019, "valid": 9, "total": 23 }] }], "valid": 78, "total": 322, "landsatCoverage": [98.5, 99.2] },
+  "limits": ["..."],
+  "next": ["..."],
+  "provenance": { "landsat": "...", "modis": "...", "power": "..." }
+}
+```
+
+`zones` usa como máximo 3 series (paleta categórica validada para el fondo oscuro, en orden fijo).
+
 ## Qué no afirmar (lo aplica la interfaz)
 
 - El ROI es un área candidata, no un manglar verificado; su NDVI (~0,8) no se compara con P1/P2.

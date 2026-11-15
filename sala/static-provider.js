@@ -222,7 +222,97 @@
     };
   }
 
+  // ───────── Análisis integrado: NASA + comunidad ─────────
+  function analysis() {
+    const zones = [
+      { id: 'ROI', label: 'Zona candidata ROI', note: '~20 ha · Landsat may–oct', series: series(D.roi.rows, 'ndvi_median'), trend: D.roi.trend },
+      ...['P1', 'P2'].map(id => ({
+        id, label: `Punto ${id}`, note: 'Landsat may–oct',
+        series: series(D.landsat.may_oct[id], 'ndvi'),
+        trend: D.landsat.trends[id],
+      })),
+    ].map(z => {
+      const v = verdict(z.trend);
+      const first = z.series[0], last = z.series[z.series.length - 1];
+      return { ...z, first, last, verdict: v.label, robust: v.tone !== 'neutral' };
+    });
+
+    const events = D.chronology.events
+      .filter(e => e.to >= Y0 && e.from <= Y1)
+      .map(e => ({ from: Math.max(e.from, Y0), to: Math.min(e.to, Y1), period: e.period, event: e.event, impact: e.impact }));
+
+    const rain = D.power.map(r => ({ year: r.year, value: r.rain_mm }));
+    const wet = rain.reduce((a, b) => (b.value > a.value ? b : a));
+    const dry = rain.reduce((a, b) => (b.value < a.value ? b : a));
+    const wetEvents = events.filter(e => e.from === wet.year && e.to === wet.year);
+    const t2m = D.power.map(r => r.t2m_c);
+
+    const quality = ['P1', 'P2'].map(id => ({
+      id, rows: D.modis[id].quality,
+      valid: D.modis[id].quality.reduce((s, q) => s + q.valid, 0),
+      total: D.modis[id].quality.reduce((s, q) => s + q.total, 0),
+    }));
+    const qValid = quality.reduce((s, q) => s + q.valid, 0), qTotal = quality.reduce((s, q) => s + q.total, 0);
+    const cov = D.roi.rows.map(r => (r.observed_area_ha / D.roi.area_ha) * 100);
+
+    const byId = Object.fromEntries(zones.map(z => [z.id, z]));
+    const tx = z => `${signed(z.trend.slope_per_year, 4)}/año (p = ${fmt(z.trend.p, 3)})`;
+    const lost = zones.filter(z => z.trend.slope_per_year < 0 && z.robust).length;
+
+    return {
+      period: [Y0, Y1],
+      headline: {
+        title: lost ? 'Hay zonas con pérdida de vegetación' : 'La vegetación se ve estable; la crisis que relata la comunidad está sobre todo en el agua y la costa',
+        text: [
+          `Entre ${Y0} y ${Y1} ${lost ? 'algunas zonas' : 'ninguna de las tres zonas'} muestra${lost ? 'n' : ''} una pérdida de vegetación detectable por satélite: ROI ${tx(byId.ROI)}, P2 ${tx(byId.P2)} y P1 ${tx(byId.P1)}, este último frágil porque depende de un solo año.`,
+          `En esos mismos años la comunidad registra ${events.length} eventos: ${events.map(e => e.event.toLowerCase()).slice(0, 4).join('; ')}. Casi todos ocurren en el agua y la orilla.`,
+          'El NDVI mide el verdor de la copa de la vegetación: no ve la calidad del agua, el crudo ni la basura entre las raíces. Que el manglar se vea verde no significa que el territorio esté sano: la brecha entre los dos cielos señala lo que falta medir.',
+        ],
+      },
+      questions: [
+        { q: '¿Qué cambió?', a: lost ? 'Hay pérdida de verdor en algunas zonas.' : 'El verdor (NDVI) se mantuvo o subió levemente.', detail: 'Ninguna zona pierde vegetación de forma significativa.' },
+        { q: '¿Dónde?', a: `P1 sube más (${fmt(byId.P1.first.value, 3)} → ${fmt(byId.P1.last.value, 3)}).`, detail: `P2 se mantiene (~${fmt(byId.P2.last.value, 2)}); el ROI casi no cambia (${fmt(byId.ROI.first.value, 3)} → ${fmt(byId.ROI.last.value, 3)}).` },
+        { q: '¿Cuánto?', a: `Entre ${signed(Math.min(...zones.map(z => z.trend.slope_per_year)), 4)} y ${signed(Math.max(...zones.map(z => z.trend.slope_per_year)), 4)} de NDVI por año.`, detail: 'Pendiente de Theil–Sen sobre 7 años (mayo–octubre).' },
+        { q: '¿Es significativo?', a: zones.some(z => z.robust) ? 'Sí, en alguna zona.' : 'No de forma robusta.', detail: `ROI p = ${fmt(byId.ROI.trend.p, 3)}; P2 p = ${fmt(byId.P2.trend.p, 3)}; P1 p = ${fmt(byId.P1.trend.p, 3)}, pero deja de serlo si se quita un año.` },
+        { q: '¿Quién ayuda a interpretarlo?', a: 'La comunidad.', detail: `Documenta ${events.length} eventos en ${Y0}–${Y1} (derrames, cianobacterias, inundación, basura) que el NDVI no mide.` },
+      ],
+      zones,
+      events,
+      climate: {
+        rain, wet, dry,
+        tRange: [Math.min(...t2m), Math.max(...t2m)],
+        provenance: P.power,
+        note: wetEvents.length
+          ? `${wet.year} fue el año más lluvioso (${fmt(wet.value, 0)} mm) y coincide con «${wetEvents[0].event.toLowerCase()}» que registra la comunidad. Coincidencia, no prueba de causa.`
+          : `${wet.year} fue el año más lluvioso (${fmt(wet.value, 0)} mm).`,
+      },
+      quality: {
+        modis: quality,
+        valid: qValid, total: qTotal,
+        landsatCoverage: [Math.min(...cov), Math.max(...cov)],
+      },
+      limits: [
+        'No hay datos satelitales del agua (NDWI, temperatura superficial, clorofila).',
+        'P1 y P2 los eligió el equipo; el ROI es un área candidata dibujada sobre imágenes recientes.',
+        `Solo ${Y1 - Y0 + 1} años: las tendencias son exploratorias.`,
+        `MODIS (250 m): solo ${qValid} de ${qTotal} observaciones pasan el control de calidad.`,
+        'La cronología comunitaria es un relato documental; varias cifras necesitan fuente.',
+      ],
+      next: [
+        'Medir el agua: NDWI y temperatura superficial con Landsat; clorofila y cianobacterias con sensores de color del agua.',
+        'Delimitar el manglar con la comunidad y validarlo en campo.',
+        'Alargar la serie con MODIS desde 2000.',
+        'Sumar registros comunitarios con consentimiento (plantilla lista).',
+      ],
+      provenance: P,
+      source: 'static',
+    };
+  }
+
   window.KATOUWA_STATIC = {
+    analysis(territoryId) {
+      return territoryId === 'santa-rosa' ? analysis() : null;
+    },
     territory(id) {
       const t = territories[id];
       return t ? JSON.parse(JSON.stringify(t)) : null;

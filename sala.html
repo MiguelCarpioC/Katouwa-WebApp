@@ -29,6 +29,14 @@
       </div>
 
       <div class="rail__group">
+        <p class="rail__label">Vista</p>
+        <div class="seg" role="radiogroup" aria-label="Vista" id="viewSwitch">
+          <button role="radio" aria-checked="true" data-view="mapa">Mapa</button>
+          <button role="radio" aria-checked="false" data-view="analisis">Análisis</button>
+        </div>
+      </div>
+
+      <div class="rail__group" id="layersGroup">
         <p class="rail__label">Capas</p>
         <div class="layers" role="radiogroup" aria-label="Capas" id="layerSwitch">
           <button role="radio" aria-checked="false" data-layer="nasa">
@@ -59,7 +67,8 @@
     </aside>
 
     <!-- ───────── Centro ───────── -->
-    <main class="stage">
+    <main class="stage" id="stage">
+      <section class="analysis" id="analysis" hidden aria-label="Análisis integrado"></section>
       <div class="map" id="map">
         <svg id="mapSvg" role="img" aria-label="Mapa del área de estudio"></svg>
 
@@ -145,6 +154,7 @@
   <script src="sala/api.js"></script>
   <script src="sala/map.js"></script>
   <script src="sala/pulse.js"></script>
+  <script src="sala/analysis.js"></script>
   <script src="sala/sala.js"></script>
 </body>
 </html>

@@ -232,7 +232,35 @@
     });
   }
 
-  radioGroup($('territorySwitch'), 'data-territory', t => { state.territory = t; loadTerritory(); });
+  radioGroup($('territorySwitch'), 'data-territory', t => { state.territory = t; loadTerritory(); if (state.view === 'analisis') loadAnalysis(); });
+
+  // ───────── Vista: mapa o análisis integrado ─────────
+  state.view = 'mapa';
+  let analysisData = null;
+  async function loadAnalysis() {
+    const root = $('analysis');
+    const { data } = await api.getAnalysis(state.territory);
+    analysisData = data;
+    if (!data) { root.innerHTML = `<p class="an-empty">${esc(state.data && state.data.message || 'Sin análisis para este territorio todavía')}</p>`; return; }
+    window.KatouwaAnalysis.render(root, data);
+  }
+  function setView(v) {
+    state.view = v;
+    const an = v === 'analisis';
+    $('stage').classList.toggle('is-analysis', an);
+    $('analysis').hidden = !an;
+    $('map').hidden = an;
+    $('pulse').hidden = an;
+    $('layersGroup').hidden = an;
+    if (an) { clearSelection(); loadAnalysis(); }
+    else window.dispatchEvent(new Event('resize'));
+  }
+  radioGroup($('viewSwitch'), 'data-view', setView);
+  let rt = 0;
+  window.addEventListener('resize', () => {
+    if (state.view !== 'analisis' || !analysisData) return;
+    clearTimeout(rt); rt = setTimeout(() => window.KatouwaAnalysis.render($('analysis'), analysisData), 150);
+  });
   radioGroup($('layerSwitch'), 'data-layer', l => { state.layer = l; map.setLayer(l); $('mapSide').dataset.layer = l; });
 
   const year = $('year');

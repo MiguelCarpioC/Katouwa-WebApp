@@ -619,3 +619,35 @@ h2 { font-size: clamp(36px, 4.6vw, 68px); }
 @media (prefers-reduced-motion: reduce) {
   .sound.is-on .sound__bars i { animation: none; height: 8px; }
 }
+
+/* ───────── The emergency (Añú · Lake Maracaibo) ───────── */
+.crisis { display: grid; gap: 28px; max-width: 1040px; }
+.crisis__title { font-size: clamp(32px, 4vw, 56px); text-shadow: none; }
+.crisis__title em { display: block; font-style: italic; color: var(--sand); }
+.crisis__grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 32px; align-items: center; }
+.crisis__photo { margin: 0; overflow: hidden; border-radius: 14px; border: 1px solid var(--glass-border); background: rgba(6, 34, 43, 0.6); }
+.crisis__photo img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s ease, filter 1.2s ease; filter: saturate(0.85); }
+.crisis__photo:hover img { transform: scale(1.04); filter: saturate(1); }
+.crisis__photo--lead img { aspect-ratio: 615 / 381; }
+.crisis__text { display: grid; gap: 14px; }
+.card .crisis__lede { font-family: var(--f-head); font-size: clamp(19px, 1.8vw, 23px); line-height: 1.4; color: var(--moon); }
+.crisis__lede b, .crisis__block b, .crisis__mission b { font-weight: 500; color: var(--moon); }
+.crisis__lede b { color: var(--coral); }
+.crisis__mosaic { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.crisis__mosaic .crisis__photo img { aspect-ratio: 4 / 3; }
+.crisis__cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+.crisis__block { display: grid; gap: 12px; align-content: start; padding-top: 18px; border-top: 1px solid var(--glass-border); }
+.card .crisis__stat { font-family: var(--f-num); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(232, 238, 242, 0.7); display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.crisis__stat span { font-size: 40px; letter-spacing: 0; text-transform: none; color: var(--mangrove); filter: brightness(1.7); line-height: 1; }
+.crisis__stat--anu span { color: var(--sand); filter: none; font-style: italic; }
+.card .crisis__close { font-family: var(--f-head); font-style: italic; font-size: clamp(19px, 2vw, 26px); line-height: 1.4; color: var(--moon); padding-left: 20px; border-left: 3px solid var(--root); }
+.card .crisis__mission { font-size: 17px; color: var(--sand); text-align: center; letter-spacing: 0.02em; }
+.crisis__mission b { letter-spacing: 0.2em; }
+
+@media (max-width: 860px) {
+  .crisis__grid, .crisis__cols { grid-template-columns: 1fr; gap: 20px; }
+  .crisis__mosaic { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .crisis__photo img { transition: none; }
+}

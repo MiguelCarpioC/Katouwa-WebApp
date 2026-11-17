@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261115f">
+  <link rel="stylesheet" href="styles.css?v=20261117a">
 </head>
 <body>
 
@@ -40,10 +40,11 @@
     <a href="#water" data-i="0"><span>Under the water</span></a>
     <a href="#surface" data-i="1"><span>The surface</span></a>
     <a href="#moon" data-i="2"><span>The moon</span></a>
-    <a href="#team" data-i="3"><span>Team</span></a>
-    <a href="#project" data-i="4"><span>Project</span></a>
-    <a href="#demo" data-i="5"><span>Demo &amp; links</span></a>
-    <a href="#data" data-i="6"><span>Data &amp; SI</span></a>
+    <a href="#crisis" data-i="3"><span>The emergency</span></a>
+    <a href="#team" data-i="4"><span>Team</span></a>
+    <a href="#project" data-i="5"><span>Project</span></a>
+    <a href="#demo" data-i="6"><span>Demo &amp; links</span></a>
+    <a href="#data" data-i="7"><span>Data &amp; SI</span></a>
   </nav>
 
   <main>
@@ -79,10 +80,55 @@
         </div>
         <a class="cta" href="sala.html">Enter the Biocultural Control Room</a>
       </div>
-      <a class="cue cue--down" href="#team">
-        <span>Meet the team</span>
+      <a class="cue cue--down" href="#crisis">
+        <span>Why it matters</span>
         <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 5v14M5 12l7 7 7-7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
+    </section>
+
+    <!-- ───────── The problem: the Añú and Lake Maracaibo ───────── -->
+
+    <section class="stage stage--info" id="crisis">
+      <div class="stage__inner stage__inner--wide">
+        <p class="eyebrow">The emergency</p>
+        <article class="card crisis">
+          <header class="crisis__head">
+            <h2 class="crisis__title">A Planetary Emergency, <em>A Vanishing Ancestral World</em></h2>
+          </header>
+
+          <div class="crisis__grid">
+            <figure class="crisis__photo crisis__photo--lead">
+              <img src="assets/crisis-palafitos.webp" width="615" height="381" loading="lazy"
+                   alt="Añú palafitos (stilt houses) over the water, with the shoreline in front buried under plastic bottles while people in small boats move through the lake.">
+            </figure>
+            <div class="crisis__text">
+              <p class="crisis__lede">Lake Maracaibo—the largest lake in South America, one of the oldest on Earth, and a vital freshwater reserve constantly observed by NASA satellites—is <b>bleeding out</b>.</p>
+              <p>For decades, relentless oil spills, toxic plastics, and untreated waste have choked its waters, turning a cradle of life into an environmental disaster zone.</p>
+            </div>
+          </div>
+
+          <div class="crisis__mosaic">
+            <figure class="crisis__photo"><img src="assets/crisis-mangrove.webp" width="614" height="459" loading="lazy" alt="A shore covered with plastic waste in front of a dense green mangrove forest."></figure>
+            <figure class="crisis__photo"><img src="assets/crisis-water.webp" width="605" height="441" loading="lazy" alt="Plastic bottles, containers and debris floating on dark water."></figure>
+            <figure class="crisis__photo"><img src="assets/crisis-boat.webp" width="720" height="457" loading="lazy" alt="A person in an orange vest steps across a bank of plastic bottles beside a blue wooden boat."></figure>
+            <figure class="crisis__photo"><img src="assets/crisis-shore.webp" width="612" height="544" loading="lazy" alt="Stilt houses and boats behind a waterfront strewn with plastic and garbage."></figure>
+          </div>
+
+          <div class="crisis__cols">
+            <div class="crisis__block">
+              <p class="crisis__stat"><span>4×</span> more carbon captured by mangroves than by terrestrial forests</p>
+              <p>At the epicenter of this collapse stand the mangroves: <b>the blue lungs of our planet</b>, capable of capturing up to four times more carbon than terrestrial forests. Today, oil coats their roots like a death sentence, suffocating the trees and destroying the natural shield that protects the coast.</p>
+            </div>
+            <div class="crisis__block">
+              <p class="crisis__stat crisis__stat--anu"><span>Añú</span> “the people of the water” · Santa Rosa de Agua</p>
+              <p>This is not just an ecological crisis—it is the slow erasure of an entire civilization. For the Añú people, “the people of the water” in Santa Rosa de Agua, losing the mangrove means losing their food, their palafites, their language, and their ancestral territory.</p>
+            </div>
+          </div>
+
+          <p class="crisis__close">When a mangrove dies here, a piece of Earth's climate defense falls, and thousands of years of Indigenous memory sink beneath the oil.</p>
+          <p class="crisis__mission"><b>KATOUWA</b> exists to make the invisible visible before it is too late.</p>
+        </article>
+      </div>
     </section>
 
     <!-- ───────── Team page (over the fixed moon) ───────── -->
@@ -231,6 +277,6 @@
     <span class="sound__bars" aria-hidden="true"><i></i><i></i><i></i></span>
   </button>
 
-  <script src="main.js?v=20261115f"></script>
+  <script src="main.js?v=20261117a"></script>
 </body>
 </html>

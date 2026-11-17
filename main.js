@@ -114,7 +114,7 @@
 
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => e.isIntersecting && e.target.classList.add('is-visible'));
-  }, { threshold: 0.35 });
+  }, { threshold: 0, rootMargin: '0px 0px -25% 0px' });  // works for sections taller than the screen too
   stages.forEach(s => io.observe(s));
 
   // ───────── Background sound ─────────
